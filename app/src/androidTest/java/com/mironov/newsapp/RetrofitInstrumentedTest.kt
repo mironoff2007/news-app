@@ -6,6 +6,8 @@ import com.mironov.newsapp.di.TestAppComponent
 import com.mironov.newsapp.retrofit.NewsApi
 import com.mironov.newsapp.retrofit.JsonResponse
 import com.mironov.newsapp.di.DaggerTestAppComponent
+import com.mironov.newsapp.retrofit.JsonError
+import okhttp3.ResponseBody
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*
@@ -40,11 +42,11 @@ class RetrofitInstrumentedTest {
     fun apiNewsTest() {
 
         val call: Call<JsonResponse?> =
-            retrofit.getNews("d6856a153473471887a271c3cd90b31e")
+            retrofit.getNews("bbc.com","2022-02-09","2022-02-09","d6856a153473471887a271c3cd90b31e")
 
         val jsonResponse: Response<JsonResponse?> = call!!.execute()
-        var body = jsonResponse.body() as JsonResponse?
+        var response = jsonResponse.body() as JsonResponse?
 
-        assertEquals(true, body?.code == "parametersMissing")
+        assertEquals(true, response?.status == "ok")
     }
 }
