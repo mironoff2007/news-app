@@ -7,8 +7,8 @@ import retrofit2.http.Query
 
 interface NewsApi {
 
-    @GET()
+    @GET("everything")
     fun getNews(
         @Query("apiKey") apiKey: String
-    ): Call<Response?>
+    ): Call<JsonResponse?>
 }
