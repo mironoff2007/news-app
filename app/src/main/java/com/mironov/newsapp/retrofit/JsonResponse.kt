@@ -1,14 +1,13 @@
 package com.mironov.newsapp.retrofit
-
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.ArrayList
 
 class JsonResponse {
     @SerializedName("status")
     var status: String? = null
-    @Expose
-    @SerializedName("code")
-    var code: String? = null
+
+    @SerializedName("articles")
+    var articles: ArrayList<Article>?=null
 }
 
 
