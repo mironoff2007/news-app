@@ -4,7 +4,7 @@ import android.content.Context
 import com.mironov.newsapp.MainActivity
 import dagger.*
 
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class,RetrofitModule::class])
 
 interface AppComponent  {
     fun inject(activity: MainActivity)
