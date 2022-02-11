@@ -24,5 +24,33 @@
         android:textAlignment="center"
         android:text="some info"/>
 
+    <LinearLayout
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
+        <ImageButton
+            android:layout_marginLeft="@dimen/info_buttons_margin"
+            android:id="@+id/buttonBack"
+            android:src="@drawable/ic_arrow_left_black"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_marginRight="@dimen/info_buttons_margin"
+            android:id="@+id/buttonForward"
+            android:src="@drawable/ic_arrow_right_black"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
 </LinearLayout>

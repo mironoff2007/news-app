@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
+import com.mironov.newsapp.ui.screens.GreetingFragment
+import com.mironov.newsapp.ui.screens.GreetingFragment.Companion.TAG_GREETING_FRAGMENT
 import com.mironov.newsapp.ui.screens.NewsListFragment
 import com.mironov.newsapp.ui.screens.NewsListFragment.Companion.TAG_NEWS_LIST_FRAGMENT
 import com.mironov.newsapp.ui.screens.SplashFragment
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(
                         R.id.fragment_container,
-                        NewsListFragment(),TAG_NEWS_LIST_FRAGMENT)
+                       GreetingFragment(),TAG_GREETING_FRAGMENT)
                     .commit()
             }, 2000)
         }

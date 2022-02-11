@@ -1,19 +1,13 @@
 package com.mironov.newsapp.ui.screens
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import com.mironov.newsapp.R
-import com.mironov.newsapp.databinding.FragmentNewsListBinding
 import com.mironov.newsapp.databinding.FragmentSplashScreenBinding
-import com.mironov.newsapp.ui.MainActivity
-import kotlinx.android.synthetic.main.fragment_splash_screen.view.*
 
 class SplashFragment : BaseFragment<FragmentSplashScreenBinding>() {
 

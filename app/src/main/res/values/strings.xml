@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">news app</string>
+    <string name="guide_text">Use this app to search news</string>
+    <string name="guide_header">Guide</string>
+    <string name="greetings_text">Greetings</string>
+    <string name="greetings_info">This is news app</string>
 </resources>
