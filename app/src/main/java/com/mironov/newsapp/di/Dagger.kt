@@ -1,8 +1,8 @@
 package com.mironov.newsapp.di
 
 import android.content.Context
-import com.mironov.newsapp.MainActivity
-import com.mironov.newsapp.NewsListFragment
+import com.mironov.newsapp.ui.MainActivity
+import com.mironov.newsapp.ui.screens.NewsListFragment
 import dagger.*
 
 @Component(modules = [AppModule::class,RetrofitModule::class])

@@ -1,4 +1,4 @@
-package com.mironov.newsapp
+package com.mironov.newsapp.ui.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
