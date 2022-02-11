@@ -3,8 +3,8 @@ package com.mironov.newsapp
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mironov.newsapp.di.TestAppComponent
-import com.mironov.newsapp.retrofit.NewsApi
-import com.mironov.newsapp.retrofit.JsonResponse
+import com.mironov.newsapp.repository.retrofit.NewsApi
+import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.di.DaggerTestAppComponent
 import org.junit.Test
 import org.junit.runner.RunWith

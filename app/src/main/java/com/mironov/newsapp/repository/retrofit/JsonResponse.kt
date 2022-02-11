@@ -1,4 +1,4 @@
-package com.mironov.newsapp.retrofit
+package com.mironov.newsapp.repository.retrofit
 import com.google.gson.annotations.SerializedName
 import java.util.ArrayList
 

@@ -1,4 +1,4 @@
-package com.mironov.newsapp.retrofit
+package com.mironov.newsapp.repository.retrofit
 
 import retrofit2.Call
 import retrofit2.http.GET

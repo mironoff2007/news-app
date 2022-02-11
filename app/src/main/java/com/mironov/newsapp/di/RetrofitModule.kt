@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.mironov.newsapp.retrofit.NewsApi
+import com.mironov.newsapp.repository.retrofit.NewsApi
 
 @Module
 object RetrofitModule {
