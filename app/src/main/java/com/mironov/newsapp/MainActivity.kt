@@ -1,13 +1,10 @@
 package com.mironov.newsapp
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Debug
 import com.mironov.newsapp.NewsListFragment.Companion.TAG_NEWS_LIST_FRAGMENT
 
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
