@@ -16,7 +16,6 @@ class MainApp : Application() {
             .context(this)
             .build()
     }
-
 }
 
 val Context.appComponent: AppComponent
