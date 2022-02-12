@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.ItemArticleBinding
 import com.mironov.newsapp.repository.retrofit.Article
 import javax.inject.Inject
 
-class ArticlesAdapter() : RecyclerView.Adapter<ArticleViewHolder>() {
-
-    @Inject
-    lateinit var glide: RequestManager
+class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleViewHolder>() {
 
     private var _binding: ItemArticleBinding? = null
 

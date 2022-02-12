@@ -1,6 +1,7 @@
 package com.mironov.newsapp.ui.recycler
 
 import android.annotation.SuppressLint
+import android.text.Html
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.R
@@ -22,7 +23,7 @@ class ArticleViewHolder(
                 .into(image)
 
             title.text = article.title
-            description.text = article.description
+            description.text = Html.fromHtml(article.description)
 
         }
     }

@@ -14,9 +14,13 @@ import com.mironov.newsapp.ui.screens.GuideFragment
 import com.mironov.newsapp.ui.screens.NewsListFragment
 import dagger.*
 import dagger.multibindings.IntoMap
+import javax.inject.Scope
+
+@Scope
+annotation class AppScope
 
 @Component(modules = [AppModule::class,RetrofitModule::class,AppBindsModule::class,GlideModule::class])
-
+@AppScope
 interface AppComponent  {
     fun inject(activity: MainActivity)
     fun inject(newsListFragment: NewsListFragment)

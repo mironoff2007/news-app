@@ -8,6 +8,7 @@ import com.mironov.newsapp.di.TestAppComponent
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.di.DaggerTestAppComponent
+import com.mironov.newsapp.repository.Repository
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Test
@@ -36,7 +37,7 @@ class RetrofitInstrumentedTest {
     }
 
     @Inject
-    lateinit var retrofit: NewsApi
+    lateinit var repo: Repository
 
     @SuppressLint("CheckResult")
     @Test
@@ -44,15 +45,12 @@ class RetrofitInstrumentedTest {
 
         var response: JsonResponse? = null
 
-        val call: Single<JsonResponse?> =
-            retrofit.getNews(
-                "bbc.com",
-                "2022-02-09",
-                "2022-02-09",
-                "d6856a153473471887a271c3cd90b31e"
-            )
-
-        call!!
+        repo.getNews(
+            "bbc.com",
+            "2022-02-09",
+            "2022-02-09",
+            "d6856a153473471887a271c3cd90b31e"
+        )
             .doOnSuccess {
                 Log.d("My_tag", "Success")
                 response = it!!
