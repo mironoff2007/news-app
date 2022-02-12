@@ -1,8 +1,8 @@
 package com.mironov.newsapp.di
 
-import Repository
 import android.content.Context
 import com.mironov.newsapp.repository.DataShared
+import com.mironov.newsapp.repository.Repository
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.ui.MainActivity
 import com.mironov.newsapp.ui.screens.NewsListFragment
@@ -26,6 +26,7 @@ interface AppComponent  {
 
 @Module
 class AppModule() {
+
     @Provides
     fun provideRepository(dataShared:DataShared,retrofit:NewsApi): Repository {
         return Repository(dataShared,retrofit)
