@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.mironov.newsapp.R
 import com.mironov.newsapp.databinding.FragmentSplashScreenBinding
+import com.mironov.newsapp.ui.MainActivity
 
 class SplashFragment : BaseFragment<FragmentSplashScreenBinding>() {
 
@@ -28,6 +30,15 @@ class SplashFragment : BaseFragment<FragmentSplashScreenBinding>() {
         val sideAnimation = AnimationUtils.loadAnimation(requireContext(),
             R.anim.side_slide
         )
+        sideAnimation.setAnimationListener(
+            object : Animation.AnimationListener {
+                override fun onAnimationEnd(animation: Animation?) {
+                    (requireActivity() as MainActivity).observe()
+                }
+
+                override fun onAnimationStart(animation: Animation?) {}
+                override fun onAnimationRepeat(animation: Animation?) {}
+            })
         binding.logoIcon.startAnimation(sideAnimation)
 
     }

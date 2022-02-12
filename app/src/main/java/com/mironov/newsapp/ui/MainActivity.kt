@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Debug
 import android.os.Handler
+import androidx.lifecycle.Observer
 import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.ui.screens.GreetingFragment
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
 
-    private val isFirstRun=AtomicBoolean()
+    private lateinit var observer : Observer<Boolean>
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -39,31 +40,33 @@ class MainActivity : AppCompatActivity() {
             //background tasks while splash is showing
             viewModel = applicationContext.appComponent.factory.create(MainViewModel::class.java)
 
-            checkFirstRun()
-
-            Handler().postDelayed({
-                if (isFirstRun.get()) {
-                    supportFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.fragment_container,
-                            GreetingFragment(), TAG_GREETING_FRAGMENT
-                        )
-                        .commit()
-                }
-                else{
-                    supportFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.fragment_container,
-                            NewsListFragment(), TAG_NEWS_LIST_FRAGMENT
-                        )
-                        .commit()
-                }
-            }, 2000)
+            viewModel.checkFirstRun()
         }
     }
 
-    private fun checkFirstRun() {
-        viewModel.isFirstRun.observe(this) { isFirst -> isFirstRun.set(isFirst) }
-        viewModel.checkFirstRun()
+    fun observe() {
+        observer = Observer { isFirstRun: Boolean ->
+            viewModel.isFirstRun.removeObserver(observer)
+            showFragmentOnSplashEnd(isFirstRun)
+        }
+        viewModel.isFirstRun.observe(this, observer)
+    }
+
+    private fun showFragmentOnSplashEnd(isFirstRun:Boolean) {
+        if (isFirstRun) {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    GreetingFragment(), TAG_GREETING_FRAGMENT
+                )
+                .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    NewsListFragment(), TAG_NEWS_LIST_FRAGMENT
+                )
+                .commit()
+        }
     }
 }
