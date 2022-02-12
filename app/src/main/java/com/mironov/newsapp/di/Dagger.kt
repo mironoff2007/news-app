@@ -7,6 +7,7 @@ import com.mironov.newsapp.repository.Repository
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.ui.MainActivity
 import com.mironov.newsapp.ui.MainViewModel
+import com.mironov.newsapp.ui.StartUpInfoFragmentViewModel
 import com.mironov.newsapp.ui.screens.NewsListFragment
 import dagger.*
 import dagger.multibindings.IntoMap
@@ -47,6 +48,10 @@ interface AppBindsModule {
     @Binds
     @[IntoMap ViewModelKey(MainViewModel::class)]
     fun provideMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(StartUpInfoFragmentViewModel::class)]
+    fun provideStartUpInfoFragmentViewModel(startUpInfoFragmentViewModel: StartUpInfoFragmentViewModel): ViewModel
 }
 
 
