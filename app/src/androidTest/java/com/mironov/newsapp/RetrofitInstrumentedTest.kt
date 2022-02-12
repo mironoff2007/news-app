@@ -1,5 +1,7 @@
 package com.mironov.newsapp
 
+import android.os.Debug
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mironov.newsapp.di.TestAppComponent
@@ -22,6 +24,7 @@ class RetrofitInstrumentedTest {
     @Before
     @Throws(Exception::class)
     fun setUp() {
+        //Debug.waitForDebugger()
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
         appComponent = DaggerTestAppComponent.builder()
@@ -42,6 +45,8 @@ class RetrofitInstrumentedTest {
 
         val jsonResponse: Response<JsonResponse?> = call!!.execute()
         var response = jsonResponse.body()
+
+        Log.d("My_tag", jsonResponse.raw().toString())
 
         assertEquals(true, response?.status == "ok")
     }

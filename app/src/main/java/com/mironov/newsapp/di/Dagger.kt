@@ -14,7 +14,7 @@ import com.mironov.newsapp.ui.screens.NewsListFragment
 import dagger.*
 import dagger.multibindings.IntoMap
 
-@Component(modules = [AppModule::class,RetrofitModule::class,AppBindsModule::class])
+@Component(modules = [AppModule::class,RetrofitModule::class,AppBindsModule::class,GlideModule::class])
 
 interface AppComponent  {
     fun inject(activity: MainActivity)
