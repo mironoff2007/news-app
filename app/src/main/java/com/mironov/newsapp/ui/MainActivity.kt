@@ -11,10 +11,13 @@ import com.mironov.newsapp.ui.screens.NewsListFragment
 import com.mironov.newsapp.ui.screens.NewsListFragment.Companion.TAG_NEWS_LIST_FRAGMENT
 import com.mironov.newsapp.ui.screens.SplashFragment
 import com.mironov.newsapp.ui.screens.SplashFragment.Companion.TAG_SPLASH_SCREEN_FRAGMENT
+import java.util.concurrent.atomic.AtomicBoolean
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+
+    private lateinit var isFirstRun: AtomicBoolean
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -28,19 +31,38 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .add(
                     R.id.fragment_container,
-                    SplashFragment(),TAG_SPLASH_SCREEN_FRAGMENT)
+                    SplashFragment(), TAG_SPLASH_SCREEN_FRAGMENT
+                )
                 .commit()
 
             //background tasks while splash is showing
             viewModel = applicationContext.appComponent.factory.create(MainViewModel::class.java)
 
+            checkFirstRun()
+
             Handler().postDelayed({
-                supportFragmentManager.beginTransaction()
-                    .replace(
-                        R.id.fragment_container,
-                       GreetingFragment(),TAG_GREETING_FRAGMENT)
-                    .commit()
+                if (isFirstRun.get()) {
+                    supportFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.fragment_container,
+                            GreetingFragment(), TAG_GREETING_FRAGMENT
+                        )
+                        .commit()
+                }
+                else{
+                    supportFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.fragment_container,
+                            NewsListFragment(), TAG_NEWS_LIST_FRAGMENT
+                        )
+                        .commit()
+                }
             }, 2000)
         }
+    }
+
+    private fun checkFirstRun() {
+        viewModel.isFirstRun.observe(this) { isFirst -> isFirstRun.set(isFirst) }
+        viewModel.checkFirstRun()
     }
 }
