@@ -1,8 +1,10 @@
 package com.mironov.newsapp
 
-import org.junit.Test
-
+import com.mironov.newsapp.domain.DateUtil
 import org.junit.Assert.*
+import org.junit.Test
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,6 +14,8 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
+
+        println(DateUtil.getPreviousDayDate(2))
         assertEquals(4, 2 + 2)
     }
 }

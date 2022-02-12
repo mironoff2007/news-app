@@ -12,10 +12,8 @@ import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentNewsListBinding
 import com.mironov.newsapp.ui.NewsListFragmentViewModel
-import com.mironov.newsapp.ui.StartUpInfoFragmentViewModel
-import com.mironov.newsapp.ui.Status
+import com.mironov.newsapp.domain.Status
 import com.mironov.newsapp.ui.recycler.ArticlesAdapter
-import kotlinx.android.synthetic.main.fragment_news_list.*
 import javax.inject.Inject
 
 class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {

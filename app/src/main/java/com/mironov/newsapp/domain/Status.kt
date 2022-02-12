@@ -1,4 +1,4 @@
-package com.mironov.newsapp.ui
+package com.mironov.newsapp.domain
 
 import com.mironov.newsapp.repository.retrofit.Article
 import java.util.ArrayList

@@ -1,9 +1,10 @@
 package com.mironov.newsapp.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mironov.newsapp.domain.DateUtil
+import com.mironov.newsapp.domain.Status
 import com.mironov.newsapp.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,12 +19,13 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getNews() {
+        val todayDate=DateUtil.getTodayDate()
         status.postValue(Status.LOADING)
         repository.getNews(
             "bbc.com",
             "ru",
-            "2022-02-09",
-            "2022-02-09",
+            todayDate,
+            todayDate,
             "d6856a153473471887a271c3cd90b31e"
         )
             .subscribeOn(Schedulers.io())
