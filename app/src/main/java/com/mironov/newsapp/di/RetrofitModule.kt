@@ -31,7 +31,7 @@ object RetrofitModule {
     }
 
     @Provides
-    fun provideCurrencyApi(retrofit: Retrofit.Builder): NewsApi {
+    fun provideNewsApi(retrofit: Retrofit.Builder): NewsApi {
         return retrofit
             .build()
             .create(NewsApi::class.java)

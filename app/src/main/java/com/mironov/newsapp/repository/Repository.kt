@@ -1,4 +1,4 @@
-
+package com.mironov.newsapp.repository
 import com.mironov.newsapp.repository.DataShared
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import javax.inject.Inject
