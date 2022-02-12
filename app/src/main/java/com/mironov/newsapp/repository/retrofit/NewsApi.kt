@@ -1,6 +1,6 @@
 package com.mironov.newsapp.repository.retrofit
 
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,5 +12,5 @@ interface NewsApi {
         @Query("from") dateFrom: String,
         @Query("to") dateTo: String,
         @Query("apiKey") apiKey: String
-    ): Call<JsonResponse?>
+    ): Single<JsonResponse?>
 }

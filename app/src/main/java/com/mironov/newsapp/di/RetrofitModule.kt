@@ -7,6 +7,7 @@ import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.mironov.newsapp.repository.retrofit.NewsApi
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 @Module
 object RetrofitModule {
@@ -28,6 +29,7 @@ object RetrofitModule {
                         .create()
                 )
             )
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 
     @Provides
