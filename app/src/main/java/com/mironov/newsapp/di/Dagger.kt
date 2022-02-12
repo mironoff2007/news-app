@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.mironov.newsapp.repository.DataShared
 import com.mironov.newsapp.repository.Repository
 import com.mironov.newsapp.repository.retrofit.NewsApi
+import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.ui.MainActivity
 import com.mironov.newsapp.ui.MainViewModel
 import com.mironov.newsapp.ui.StartUpInfoFragmentViewModel
@@ -56,6 +57,10 @@ interface AppBindsModule {
     @Binds
     @[IntoMap ViewModelKey(StartUpInfoFragmentViewModel::class)]
     fun provideStartUpInfoFragmentViewModel(startUpInfoFragmentViewModel: StartUpInfoFragmentViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(NewsListFragmentViewModel::class)]
+    fun provideNewsListFragmentViewModel(newsListFragmentViewModel: NewsListFragmentViewModel):ViewModel
 }
 
 

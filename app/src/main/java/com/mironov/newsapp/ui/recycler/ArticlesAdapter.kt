@@ -25,13 +25,11 @@ class ArticlesAdapter() : RecyclerView.Adapter<ArticleViewHolder>() {
             notifyDataSetChanged()
         }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemArticleBinding.inflate(inflater, parent, false)
         return ArticleViewHolder(binding)
     }
-
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         holder.bind(glide,articles[position])
