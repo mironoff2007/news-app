@@ -8,6 +8,8 @@ import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.ui.MainActivity
 import com.mironov.newsapp.ui.MainViewModel
 import com.mironov.newsapp.ui.StartUpInfoFragmentViewModel
+import com.mironov.newsapp.ui.screens.GreetingFragment
+import com.mironov.newsapp.ui.screens.GuideFragment
 import com.mironov.newsapp.ui.screens.NewsListFragment
 import dagger.*
 import dagger.multibindings.IntoMap
@@ -17,6 +19,8 @@ import dagger.multibindings.IntoMap
 interface AppComponent  {
     fun inject(activity: MainActivity)
     fun inject(newsListFragment: NewsListFragment)
+    fun inject(greetingFragment: GreetingFragment)
+    fun inject(guideFragment: GuideFragment)
 
     val factory: MultiViewModelFactory
 

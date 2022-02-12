@@ -2,6 +2,7 @@ package com.mironov.newsapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Debug
 import android.os.Handler
 import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent

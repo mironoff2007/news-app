@@ -45,6 +45,18 @@
             android:layout_weight="1"/>
 
         <ImageButton
+            android:id="@+id/accept"
+            android:src="@drawable/ic_check"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageButton
             android:layout_marginRight="@dimen/info_buttons_margin"
             android:id="@+id/buttonForward"
             android:src="@drawable/ic_arrow_right_black"

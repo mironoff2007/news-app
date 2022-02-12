@@ -9,7 +9,7 @@ class StartUpInfoFragmentViewModel @Inject constructor():ViewModel() {
     @Inject
     protected lateinit var repository: Repository
 
-    fun checkFirstRun() {
+    fun setNotFirstRun() {
         repository.setNotFirstStartUp()
     }
 }

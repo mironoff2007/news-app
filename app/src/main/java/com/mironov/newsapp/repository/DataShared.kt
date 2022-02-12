@@ -14,7 +14,7 @@ class DataShared(context: Context) {
     private val editor: SharedPreferences.Editor = pref.edit()
 
     fun setNotFirstStartUp(){
-        editor.putBoolean(KEY_IS_FIRST_STARTUP,true).apply()
+        editor.putBoolean(KEY_IS_FIRST_STARTUP,false).apply()
     }
 
     fun isFirstStartUp(): Boolean {
