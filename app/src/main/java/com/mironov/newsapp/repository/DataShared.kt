@@ -18,6 +18,6 @@ class DataShared(context: Context) {
     }
 
     fun isFirstStartUp(): Boolean {
-        return pref.getBoolean(KEY_IS_FIRST_STARTUP,false)
+        return pref.getBoolean(KEY_IS_FIRST_STARTUP,true)
     }
 }

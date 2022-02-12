@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
 
-    private lateinit var isFirstRun: AtomicBoolean
+    private val isFirstRun=AtomicBoolean()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
