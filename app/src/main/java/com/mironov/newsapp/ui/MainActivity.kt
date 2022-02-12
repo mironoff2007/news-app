@@ -14,6 +14,8 @@ import com.mironov.newsapp.ui.screens.SplashFragment.Companion.TAG_SPLASH_SCREEN
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         //Debug.waitForDebugger()
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
                     R.id.fragment_container,
                     SplashFragment(),TAG_SPLASH_SCREEN_FRAGMENT)
                 .commit()
+
+            //background tasks while splash is showing
+            viewModel = applicationContext.appComponent.factory.create(MainViewModel::class.java)
 
             Handler().postDelayed({
                 supportFragmentManager.beginTransaction()
