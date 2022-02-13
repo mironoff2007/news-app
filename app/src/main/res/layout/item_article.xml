@@ -58,15 +58,4 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-    <TextView
-        android:layout_marginTop="@dimen/article_top_margin"
-        android:layout_marginLeft="@dimen/article_description_left_right_margins"
-        android:layout_marginRight="@dimen/article_description_left_right_margins"
-        android:textSize="20sp"
-        android:id="@+id/description"
-        android:text="Description"
-        android:textAlignment="textStart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
 </LinearLayout>

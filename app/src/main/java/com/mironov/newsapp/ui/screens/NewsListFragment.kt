@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentNewsListBinding
 import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.domain.entity.Status
+import com.mironov.newsapp.ui.recycler.ArticleViewHolder
 import com.mironov.newsapp.ui.recycler.ArticlesAdapter
+import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.KEY_ARTICLE
+import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.TAG_DETAILS_FRAGMENT
 import javax.inject.Inject
 
 class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
@@ -34,6 +38,24 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
     private var loading=false
 
+
+    private val listener=object : ArticlesAdapter.ItemClickListener<ArticleViewHolder> {
+        override fun onClickListener(item: ArticleViewHolder) {
+
+            val fragment = DetailsFragment()
+            val argumentsDetails = Bundle()
+            argumentsDetails.putParcelable(KEY_ARTICLE,adapter.articles[item.position])
+
+            fragment.arguments = argumentsDetails
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment,TAG_DETAILS_FRAGMENT)
+                .addToBackStack(TAG_NEWS_LIST_FRAGMENT)
+                .commit()
+        }
+    }
+
+
     override fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -51,6 +73,8 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
             requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java)
 
         adapter=ArticlesAdapter(glide)
+        adapter.listener=listener
+
         val layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter=adapter
@@ -104,4 +128,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
             }
         }
     }
+
+
 }

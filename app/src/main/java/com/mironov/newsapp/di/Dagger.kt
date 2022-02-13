@@ -10,6 +10,7 @@ import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.ui.MainActivity
 import com.mironov.newsapp.ui.MainViewModel
 import com.mironov.newsapp.ui.StartUpInfoFragmentViewModel
+import com.mironov.newsapp.ui.screens.DetailsFragment
 import com.mironov.newsapp.ui.screens.GreetingFragment
 import com.mironov.newsapp.ui.screens.GuideFragment
 import com.mironov.newsapp.ui.screens.NewsListFragment
@@ -27,6 +28,7 @@ interface AppComponent  {
     fun inject(newsListFragment: NewsListFragment)
     fun inject(greetingFragment: GreetingFragment)
     fun inject(guideFragment: GuideFragment)
+    fun inject(detailsFragment: DetailsFragment)
 
     val factory: MultiViewModelFactory
 

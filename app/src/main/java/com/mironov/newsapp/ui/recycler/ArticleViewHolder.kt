@@ -1,7 +1,6 @@
 package com.mironov.newsapp.ui.recycler
 
 import android.annotation.SuppressLint
-import android.text.Html
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -14,7 +13,12 @@ class ArticleViewHolder(
     private val binding: ItemArticleBinding,
 ) : RecyclerView.ViewHolder(binding.root){
     @SuppressLint("SetTextI18n")
-    fun bind(glide: RequestManager, article: Article, divide: Boolean){
+    fun bind(
+        glide: RequestManager,
+        article: Article,
+        divide: Boolean,
+        listener: ArticlesAdapter.ItemClickListener<ArticleViewHolder>
+    ){
         with(binding) {
 
             glide.asDrawable()
@@ -24,7 +28,6 @@ class ArticleViewHolder(
                 .into(image)
 
             title.text = article.title
-            description.text = Html.fromHtml(article.description)
 
             if (divide){
                 dateRow.visibility=View.VISIBLE
@@ -33,8 +36,8 @@ class ArticleViewHolder(
             else{
                 dateRow.visibility=View.GONE
             }
-
-
         }
+
+        binding.root.setOnClickListener{listener.onClickListener(this)}
     }
 }

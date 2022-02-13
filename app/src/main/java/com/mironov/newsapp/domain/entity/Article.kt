@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName
 import com.mironov.newsapp.domain.DateUtil
 import kotlinx.android.parcel.Parcelize
 
+
 @Parcelize
 @Entity
 data class Article(

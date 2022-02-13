@@ -1,7 +1,7 @@
 package com.mironov.newsapp.ui.recycler
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -10,6 +10,8 @@ import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.entity.Article
 
 class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleViewHolder>() {
+
+    lateinit var listener: ItemClickListener<ArticleViewHolder>
 
     private var _binding: ItemArticleBinding? = null
 
@@ -36,10 +38,20 @@ class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleVi
                 divide=true
             }
         }
-        holder.bind(glide,articles[position],divide)
+
+
+        holder.bind(glide,articles[position],divide,listener)
     }
 
     override fun getItemCount(): Int {
         return articles.size
     }
+
+    interface ItemClickListener<I> : View.OnClickListener {
+        fun onClickListener(item: ArticleViewHolder) {
+        }
+
+        override fun onClick(v: View?) {}
+    }
+
 }
