@@ -18,14 +18,15 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
     var status = MutableLiveData<Status>()
 
     @SuppressLint("CheckResult")
-    fun getNews() {
-        val todayDate=DateUtil.getTodayDate()
+    fun getNews(daysBack:Int) {
+        val date=DateUtil.getPreviousDayDate(daysBack)
         status.postValue(Status.LOADING)
         repository.getNews(
+            100,
             "bbc.com",
             "ru",
-            todayDate,
-            todayDate,
+            dateFrom = date,
+            dateTo = date,
             "d6856a153473471887a271c3cd90b31e"
         )
             .subscribeOn(Schedulers.io())

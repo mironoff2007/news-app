@@ -3,7 +3,6 @@ package com.mironov.newsapp.repository
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import io.reactivex.Single
-import org.intellij.lang.annotations.Language
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -20,6 +19,7 @@ class Repository @Inject constructor(
     }
 
     fun getNews(
+        pageSize:Int,
         domains: String,
         language: String,
         dateFrom: String,
@@ -27,8 +27,9 @@ class Repository @Inject constructor(
         apiKey: String
     ): Single<JsonResponse?> {
         return retrofit.getNews(
+            pageSize =pageSize,
             domains = domains,
-            language=language,
+            language = language,
             dateFrom = dateFrom,
             dateTo = dateTo,
             apiKey = apiKey

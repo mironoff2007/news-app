@@ -8,6 +8,7 @@ import com.mironov.newsapp.di.TestAppComponent
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.di.DaggerTestAppComponent
+import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.repository.Repository
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -46,9 +47,11 @@ class RetrofitInstrumentedTest {
         var response: JsonResponse? = null
 
         repo.getNews(
+            100,
             "bbc.com",
-            "2022-02-09",
-            "2022-02-09",
+            "ru",
+            dateFrom = DateUtil.getTodayDate(),
+            dateTo = DateUtil.getPreviousDayDate(2),
             "d6856a153473471887a271c3cd90b31e"
         )
             .doOnSuccess {

@@ -11,8 +11,12 @@ class JsonResponse {
     @SerializedName("message")
     var message: String? = null
 
+    @Expose
+    @SerializedName("totalResults")
+    var totalResults: String? = null
+
     @SerializedName("articles")
-    var articles: ArrayList<Article>?=null
+    var articles: ArrayList<Article>?=ArrayList<Article>(30)
 }
 
 

@@ -8,6 +8,7 @@ interface NewsApi {
 
     @GET("everything")
     fun getNews(
+        @Query("pageSize") pageSize: Int,
         @Query("domains") domains: String,
         @Query("language") language: String,
         @Query("from") dateFrom: String,

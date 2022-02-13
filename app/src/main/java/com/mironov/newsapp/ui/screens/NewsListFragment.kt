@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentNewsListBinding
@@ -28,6 +29,10 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     private lateinit var viewModel: NewsListFragmentViewModel
 
     private lateinit var adapter:ArticlesAdapter
+
+    private var daysBack=0
+
+    private var loading=false
 
     override fun initBinding(
         inflater: LayoutInflater,
@@ -57,22 +62,40 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         )
 
 
+        setupScrollEndListener()
+
         observe()
 
-        viewModel.getNews()
+        viewModel.getNews(daysBack)
+    }
+
+    private fun setupScrollEndListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)&&!loading) {
+                    loading=true
+                    daysBack++
+                    viewModel.getNews(daysBack)
+                }
+            }
+        })
     }
 
     fun observe() {
         viewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Status.DATA -> {
+                    loading=false
                     binding.progressBar.visibility=View.GONE
-                    adapter.articles= status.articles!!
+                    adapter.articles.addAll(status.articles!!)
                 }
                 is Status.LOADING -> {
+                    loading=true
                     binding.progressBar.visibility=View.VISIBLE
                 }
                 is Status.ERROR -> {
+                    loading=false
                     binding.progressBar.visibility=View.GONE
                     Toast.makeText(requireContext(),status.message,Toast.LENGTH_LONG).show()
                 }

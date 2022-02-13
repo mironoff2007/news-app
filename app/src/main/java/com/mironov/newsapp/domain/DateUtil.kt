@@ -13,7 +13,7 @@ object DateUtil {
     fun getTodayDate(): String {
         val cal: Calendar = Calendar.getInstance()
         val year: Int = cal.get(Calendar.YEAR)
-        val month: Int = cal.get(Calendar.MONTH)
+        val month: Int = cal.get(Calendar.MONTH)+1
         val day: Int = cal.get(Calendar.DAY_OF_MONTH)
 
         return  formatDate(day, month, year)
@@ -21,9 +21,9 @@ object DateUtil {
 
     fun getPreviousDayDate(daysBack:Int): String {
         val cal: Calendar = Calendar.getInstance()
-        cal.add(Calendar.DATE, -daysBack);
+        cal.add(Calendar.DATE, -daysBack)
         val year: Int = cal.get(Calendar.YEAR)
-        val month: Int = cal.get(Calendar.MONTH)
+        val month: Int = cal.get(Calendar.MONTH)+1
         val day: Int = cal.get(Calendar.DAY_OF_MONTH)
 
         return  formatDate(day, month, year)
