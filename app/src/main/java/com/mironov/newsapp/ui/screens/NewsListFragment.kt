@@ -13,8 +13,8 @@ import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentNewsListBinding
-import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.domain.entity.Status
+import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.ui.recycler.ArticleViewHolder
 import com.mironov.newsapp.ui.recycler.ArticlesAdapter
 import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.KEY_ARTICLE
@@ -32,24 +32,25 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
     private lateinit var viewModel: NewsListFragmentViewModel
 
-    private lateinit var adapter:ArticlesAdapter
+    private var adapter: ArticlesAdapter?=null
 
-    private var daysBack=0
+    private var daysBack = 0
+    private var daysBackLast = 0
 
-    private var loading=false
+    private var loading = false
 
 
-    private val listener=object : ArticlesAdapter.ItemClickListener<ArticleViewHolder> {
+    private val listener = object : ArticlesAdapter.ItemClickListener<ArticleViewHolder> {
         override fun onClickListener(item: ArticleViewHolder) {
 
             val fragment = DetailsFragment()
             val argumentsDetails = Bundle()
-            argumentsDetails.putParcelable(KEY_ARTICLE,adapter.articles[item.position])
+            argumentsDetails.putParcelable(KEY_ARTICLE, adapter!!.articles[item.position])
 
             fragment.arguments = argumentsDetails
 
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment,TAG_DETAILS_FRAGMENT)
+                .replace(R.id.fragment_container, fragment, TAG_DETAILS_FRAGMENT)
                 .addToBackStack(TAG_NEWS_LIST_FRAGMENT)
                 .commit()
         }
@@ -72,36 +73,59 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         viewModel =
             requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java)
 
-        adapter=ArticlesAdapter(glide)
-        adapter.listener=listener
-
-        val layoutManager = LinearLayoutManager(this.requireContext())
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter=adapter
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                binding.recyclerView.context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
-
 
         setupScrollEndListener()
 
         observe()
 
-        viewModel.getNews(daysBack)
+        if(adapter!=null){
+
+            val layoutManager = LinearLayoutManager(this.requireContext())
+            binding.recyclerView.layoutManager = layoutManager
+            binding.recyclerView.adapter = adapter
+            binding.recyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    binding.recyclerView.context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+
+            adapter!!.notifyDataSetChanged()
+        }
+        else{
+            adapter = ArticlesAdapter(glide)
+            adapter!!.listener = listener
+
+            val layoutManager = LinearLayoutManager(this.requireContext())
+            binding.recyclerView.layoutManager = layoutManager
+            binding.recyclerView.adapter = adapter
+            binding.recyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    binding.recyclerView.context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+            viewModel.getNews(daysBack)
+        }
     }
 
     private fun setupScrollEndListener() {
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1)&&!loading) {
-                    loading=true
+                if (!recyclerView.canScrollVertically(1) && !loading) {
+                    loading = true
                     daysBack++
                     viewModel.getNews(daysBack)
+
                 }
+                /*if (!recyclerView.canScrollVertically(-1) && !loading) {
+                    loading = true
+                    viewModel.getNews(0)
+                    adapter!!.articles.clear()
+                    daysBack=0
+                }*/
+                daysBackLast=daysBack
             }
         })
     }
@@ -110,21 +134,23 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         viewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Status.DATA -> {
-                    loading=false
-                    binding.progressBar.visibility=View.GONE
-                    adapter.articles.addAll(status.articles!!)
-                    adapter.notifyDataSetChanged()
+                    loading = false
+                    binding.progressBar.visibility = View.GONE
+                    adapter!!.articles.addAll(status.articles!!)
+                    adapter!!.notifyDataSetChanged()
                 }
                 is Status.LOADING -> {
-                    loading=true
-                    binding.progressBar.visibility=View.VISIBLE
+                    loading = true
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 is Status.ERROR -> {
-                    loading=false
-                    binding.progressBar.visibility=View.GONE
-                    Toast.makeText(requireContext(),status.message,Toast.LENGTH_LONG).show()
+                    daysBack=daysBackLast
+                    loading = false
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
                 }
-                else -> {}
+                else -> {
+                }
             }
         }
     }
