@@ -37,7 +37,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     private var daysBack = 0
     private var daysBackLast = 0
 
-    private var loading = false
+    private var lockScrollUpdate = false
 
 
     private val listener = object : ArticlesAdapter.ItemClickListener<ArticleViewHolder> {
@@ -75,7 +75,8 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
         setupScrollEndListener()
 
-        observe()
+        observeNewsByDate()
+        observeNewsSearch()
 
         if(adapter!=null){
 
@@ -88,7 +89,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     DividerItemDecoration.VERTICAL
                 )
             )
-
+            binding.progressBar.visibility = View.GONE
             adapter!!.notifyDataSetChanged()
         }
         else{
@@ -111,11 +112,14 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     }
 
     private fun search() {
+        daysBack=0
+        adapter!!.articles.clear()
         if(binding.searchField.text.isNotBlank()){
-            viewModel.getNews(0)
+            lockScrollUpdate=true
+            viewModel.searchNews(binding.searchField.text.toString())
         }
         else{
-            viewModel.searchNews(binding.searchField.text.toString())
+            viewModel.getNews(0)
         }
     }
 
@@ -123,8 +127,8 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1) && !loading) {
-                    loading = true
+                if (!recyclerView.canScrollVertically(1) && !lockScrollUpdate) {
+                    lockScrollUpdate = true
                     daysBack++
                     viewModel.getNews(daysBack)
 
@@ -140,22 +144,45 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         })
     }
 
-    private fun observe() {
-        viewModel.status.observe(viewLifecycleOwner) { status ->
+    private fun observeNewsByDate() {
+        viewModel.statusNewsByDate.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Status.DATA -> {
-                    loading = false
+                    lockScrollUpdate = false
                     binding.progressBar.visibility = View.GONE
                     adapter!!.articles.addAll(status.articles!!)
                     adapter!!.notifyDataSetChanged()
                 }
                 is Status.LOADING -> {
-                    loading = true
+                    lockScrollUpdate = true
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Status.ERROR -> {
+                    lockScrollUpdate = false
                     daysBack=daysBackLast
-                    loading = false
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                }
+            }
+        }
+    }
+
+    private fun observeNewsSearch() {
+        viewModel.statusNewsSearch.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                is Status.DATA -> {
+                    binding.progressBar.visibility = View.GONE
+                    daysBack=0
+                    adapter!!.articles.clear()
+                    adapter!!.articles.addAll(status.articles!!)
+                    adapter!!.notifyDataSetChanged()
+                }
+                is Status.LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Status.ERROR -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
                 }

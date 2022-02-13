@@ -7,11 +7,7 @@ import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
 import com.mironov.newsapp.repository.Repository
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.android.schedulers.AndroidSchedulers.from
-import io.reactivex.parallel.ParallelFlowable.from
 import io.reactivex.schedulers.Schedulers
 import java.util.ArrayList
 import javax.inject.Inject
@@ -22,13 +18,15 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
         const val NEWS_SOURCES_DOMAINS = "bbc.com"
         const val NEWS_LANGUAGE = "ru"
         const val NEWS_PAGE_SIZE = 100
-        const val API_KEY = "d6856a153473471887a271c3cd90b31e"
+        const val API_KEY = "9fa809116bea45fa81e3d193cbaec5f0"
     }
 
     @Inject
     protected lateinit var repository: Repository
 
-    var status = MutableLiveData<Status>()
+    var statusNewsByDate = MutableLiveData<Status>()
+
+    var statusNewsSearch = MutableLiveData<Status>()
 
     @SuppressLint("CheckResult")
     fun getNews(daysBack: Int) {
@@ -43,12 +41,12 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
                     if (articles.isEmpty()) {
                         getNewsFromWeb(daysBack)
                     } else {
-                        status.postValue(Status.DATA(articles as ArrayList<Article>?))
+                        statusNewsByDate.postValue(Status.DATA(articles as ArrayList<Article>?))
                     }
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, { throwable -> status.postValue(Status.ERROR(throwable.toString())) })
+                .subscribe({}, { throwable -> statusNewsByDate.postValue(Status.ERROR(throwable.toString())) })
         }
 
     }
@@ -56,7 +54,7 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
     @SuppressLint("CheckResult")
     fun getNewsFromWeb(daysBack: Int) {
         val date = DateUtil.getPreviousDayDate(daysBack)
-        status.postValue(Status.LOADING)
+        statusNewsByDate.postValue(Status.LOADING)
         repository.getNews(
             NEWS_PAGE_SIZE,
             NEWS_SOURCES_DOMAINS,
@@ -67,21 +65,22 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
         )
             .doOnSuccess { response ->
                 if (response!!.status == "ok") {
-                    status.postValue(Status.DATA(response.articles))
+                    response.articles!!.forEach{article ->  article.date=DateUtil.convertDate(article.publishedAt)}
+                    statusNewsByDate.postValue(Status.DATA(response.articles))
                     repository.saveNewsToDb(response!!.articles!!)
                 } else {
-                    status.postValue(Status.ERROR(response.message.toString()))
+                    statusNewsByDate.postValue(Status.ERROR(response.message.toString()))
                 }
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-            }, { throwable -> status.postValue(Status.ERROR(throwable.toString())) })
+            }, { throwable -> statusNewsByDate.postValue(Status.ERROR(throwable.toString())) })
     }
 
     @SuppressLint("CheckResult")
     fun searchNews(query:String) {
-        status.postValue(Status.LOADING)
+        statusNewsSearch.postValue(Status.LOADING)
         repository.searchNews(
             query,
             NEWS_PAGE_SIZE,
@@ -91,15 +90,15 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
         )
             .doOnSuccess { response ->
                 if (response!!.status == "ok") {
-                    status.postValue(Status.DATA(response.articles))
-                    repository.saveNewsToDb(response!!.articles!!)
+                    response.articles!!.forEach{article ->  article.date=DateUtil.convertDate(article.publishedAt)}
+                    statusNewsSearch.postValue(Status.DATA(response.articles))
                 } else {
-                    status.postValue(Status.ERROR(response.message.toString()))
+                    statusNewsSearch.postValue(Status.ERROR(response.message.toString()))
                 }
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
-            }, { throwable -> status.postValue(Status.ERROR(throwable.toString())) })
+            }, { throwable -> statusNewsSearch.postValue(Status.ERROR(throwable.toString())) })
     }
 }

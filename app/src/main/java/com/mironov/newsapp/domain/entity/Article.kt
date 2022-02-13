@@ -31,6 +31,6 @@ data class Article(
     var publishedAt: String
 ) :Parcelable{
 
-    lateinit var date:String
+    var date:String?=null
 
 }

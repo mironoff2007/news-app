@@ -61,7 +61,6 @@ class Repository @Inject constructor(
     }
 
     fun saveNewsToDb(articles:ArrayList<Article>){
-        articles.forEach{article ->  article.date=DateUtil.convertDate(article.publishedAt)}
         articleBD.articleDao().insertAllArticles(articles)
     }
 
