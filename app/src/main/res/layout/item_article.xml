@@ -6,6 +6,42 @@
     android:orientation="vertical"
     android:gravity="center">
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="68dp"
+        android:orientation="horizontal"
+        android:id="@+id/date_row">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/date_divider_line_height"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/date_divider_line_margin"
+            android:layout_marginLeft="@dimen/date_divider_line_margin"
+            android:layout_weight="1"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="160dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="date"
+            android:textAlignment="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/date_divider_line_height"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/date_divider_line_margin"
+            android:layout_marginRight="@dimen/date_divider_line_margin"
+            android:layout_weight="1"
+            android:background="@color/black" />
+    </LinearLayout>
+
     <TextView
         android:layout_marginTop="@dimen/article_top_margin"
         android:textSize="20sp"
@@ -32,7 +68,5 @@
         android:textAlignment="textStart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-
 
 </LinearLayout>

@@ -4,4 +4,7 @@
     <dimen name="article_top_margin">30dp</dimen>
     <dimen name="article_description_left_right_margins">20dp</dimen>
     <dimen name="search_field_margins">20dp</dimen>
+
+    <dimen name="date_divider_line_margin">23dp</dimen>
+    <dimen name="date_divider_line_height">2dp</dimen>
 </resources>

@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.ItemArticleBinding
+import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.repository.retrofit.Article
-import javax.inject.Inject
 
 class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleViewHolder>() {
 
@@ -30,7 +29,18 @@ class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleVi
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        holder.bind(glide,articles[position])
+        var divide=false
+        if (position == 0){
+            divide=true
+        }
+        else if (position > 1){
+            val datePrev = DateUtil.getDate(articles[position].publishedAt)
+            val dateNext = DateUtil.getDate(articles[position - 1].publishedAt)
+            if(datePrev!=dateNext){
+                divide=true
+            }
+        }
+        holder.bind(glide,articles[position],divide)
     }
 
     override fun getItemCount(): Int {
