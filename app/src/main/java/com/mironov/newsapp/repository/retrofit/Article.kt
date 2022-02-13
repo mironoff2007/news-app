@@ -1,25 +1,34 @@
 package com.mironov.newsapp.repository.retrofit
 
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-class Article {
-
+@Parcelize
+@Entity
+data class Article(
     @SerializedName("title")
-    var title: String? = null
+    var title: String,
 
     @SerializedName("description")
-    var description: String? = null
+    var description: String,
 
     @SerializedName("content")
-    var content: String? = null
+    var content: String,
 
     @SerializedName("url")
-    var url: String? = null
+    var url: String,
 
     @SerializedName("urlToImage")
-    var urlToImage: String? = null
+    var urlToImage: String,
 
     @SerializedName("publishedAt")
-    var publishedAt: String? = null
+    var publishedAt: String
+) :Parcelable{
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 
 }

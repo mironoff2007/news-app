@@ -6,8 +6,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class Repository @Inject constructor(
-    protected var dataShared: DataShared,
-    protected var retrofit: NewsApi
+    protected val dataShared: DataShared,
+    protected val retrofit: NewsApi,
+    protected val articleBD:ArticleDatabase
 ) {
 
     fun setNotFirstStartUp() {

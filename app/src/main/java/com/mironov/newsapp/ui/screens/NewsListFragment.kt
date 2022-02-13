@@ -99,6 +99,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     binding.progressBar.visibility=View.GONE
                     Toast.makeText(requireContext(),status.message,Toast.LENGTH_LONG).show()
                 }
+                else -> {}
             }
         }
     }

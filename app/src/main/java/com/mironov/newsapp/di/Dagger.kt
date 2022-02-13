@@ -2,6 +2,8 @@ package com.mironov.newsapp.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.mironov.newsapp.repository.ArticleDao
+import com.mironov.newsapp.repository.ArticleDatabase
 import com.mironov.newsapp.repository.DataShared
 import com.mironov.newsapp.repository.Repository
 import com.mironov.newsapp.repository.retrofit.NewsApi
@@ -19,7 +21,7 @@ import javax.inject.Scope
 @Scope
 annotation class AppScope
 
-@Component(modules = [AppModule::class,RetrofitModule::class,AppBindsModule::class,GlideModule::class])
+@Component(modules = [AppModule::class,RetrofitModule::class,AppBindsModule::class,GlideModule::class,RoomModule::class])
 @AppScope
 interface AppComponent  {
     fun inject(activity: MainActivity)
@@ -43,8 +45,8 @@ interface AppComponent  {
 class AppModule() {
 
     @Provides
-    fun provideRepository(dataShared: DataShared, retrofit: NewsApi): Repository {
-        return Repository(dataShared, retrofit)
+    fun provideRepository(dataShared: DataShared, retrofit: NewsApi,articleDB:ArticleDatabase): Repository {
+        return Repository(dataShared, retrofit, articleDB)
     }
 
     @Provides
