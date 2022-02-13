@@ -133,12 +133,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     viewModel.getNews(daysBack)
 
                 }
-                /*if (!recyclerView.canScrollVertically(-1) && !loading) {
-                    loading = true
-                    viewModel.getNews(0)
-                    adapter!!.articles.clear()
-                    daysBack=0
-                }*/
                 daysBackLast=daysBack
             }
         })
