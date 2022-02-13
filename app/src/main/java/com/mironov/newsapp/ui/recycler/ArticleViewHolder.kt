@@ -8,8 +8,7 @@ import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.R
 import com.mironov.newsapp.databinding.ItemArticleBinding
 import com.mironov.newsapp.domain.DateUtil
-import com.mironov.newsapp.repository.retrofit.Article
-import kotlinx.android.synthetic.main.item_article.view.*
+import com.mironov.newsapp.domain.entity.Article
 
 class ArticleViewHolder(
     private val binding: ItemArticleBinding,

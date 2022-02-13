@@ -1,7 +1,13 @@
 package com.mironov.newsapp.repository
 
+import androidx.sqlite.db.SimpleSQLiteQuery
+import com.mironov.newsapp.domain.DateUtil
+import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.repository.retrofit.NewsApi
+import com.mironov.newsapp.repository.room.ArticleDatabase
+import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -35,6 +41,17 @@ class Repository @Inject constructor(
             dateTo = dateTo,
             apiKey = apiKey
         )
+    }
+
+    fun saveNewsToDb(articles:ArrayList<Article>){
+        articles.forEach{article ->  article.date=DateUtil.convertDate(article.publishedAt)}
+        articleBD.articleDao().insertAllArticles(articles)
+    }
+
+    fun getNewsFromDbByDate(date:String): Single<List<Article>> {
+        val queryDate=DateUtil.convertDate(date)
+        val query="SELECT * FROM Article WHERE date='$queryDate'"
+        return articleBD.articleDao().readArticlesByDate(SimpleSQLiteQuery(query))
     }
 
 }

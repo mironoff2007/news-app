@@ -1,9 +1,11 @@
 package com.mironov.newsapp.repository
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.mironov.newsapp.repository.retrofit.Article
+import com.mironov.newsapp.domain.entity.Article
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface ArticleDao {
@@ -25,9 +27,9 @@ interface ArticleDao {
     fun resetTable( )
 
     @RawQuery(observedEntities = [Article::class])
-    fun readArticlesByTest(query: SupportSQLiteQuery): LiveData<List<Article?>>
+    fun readArticlesByDate(query: SupportSQLiteQuery): Single<List<Article>>
 
     @Query("SELECT * FROM Article")
-    fun readAllArticles(): LiveData<List<Article?>>
+    fun readAllArticles(): Single<List<Article>>
 
 }

@@ -1,11 +1,11 @@
-package com.mironov.newsapp.repository
+package com.mironov.newsapp.repository.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mironov.newsapp.R
-import com.mironov.newsapp.repository.retrofit.Article
+import com.mironov.newsapp.domain.entity.Article
 
 @Database(entities = [Article::class], version = 1, exportSchema = false)
 abstract class ArticleDatabase : RoomDatabase() {

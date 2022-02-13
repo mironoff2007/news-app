@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.mironov.newsapp.domain.DateUtil
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -25,10 +26,10 @@ data class Article(
     var urlToImage: String,
 
     @SerializedName("publishedAt")
+    @PrimaryKey
     var publishedAt: String
 ) :Parcelable{
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    lateinit var date:String
 
 }

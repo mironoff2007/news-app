@@ -1,6 +1,7 @@
 package com.mironov.newsapp.repository.retrofit
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.mironov.newsapp.domain.entity.Article
 import java.util.ArrayList
 
 class JsonResponse {
@@ -16,7 +17,7 @@ class JsonResponse {
     var totalResults: String? = null
 
     @SerializedName("articles")
-    var articles: ArrayList<Article>?=ArrayList<Article>(30)
+    var articles: ArrayList<Article>?=null
 }
 
 

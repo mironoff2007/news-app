@@ -13,7 +13,7 @@ import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentNewsListBinding
 import com.mironov.newsapp.ui.NewsListFragmentViewModel
-import com.mironov.newsapp.domain.Status
+import com.mironov.newsapp.domain.entity.Status
 import com.mironov.newsapp.ui.recycler.ArticlesAdapter
 import javax.inject.Inject
 

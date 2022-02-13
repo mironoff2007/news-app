@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.databinding.ItemArticleBinding
 import com.mironov.newsapp.domain.DateUtil
-import com.mironov.newsapp.repository.retrofit.Article
+import com.mironov.newsapp.domain.entity.Article
 
 class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleViewHolder>() {
 

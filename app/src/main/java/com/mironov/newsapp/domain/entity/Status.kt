@@ -1,6 +1,5 @@
-package com.mironov.newsapp.domain
+package com.mironov.newsapp.domain.entity
 
-import com.mironov.newsapp.repository.retrofit.Article
 import java.util.ArrayList
 
 sealed class Status {
