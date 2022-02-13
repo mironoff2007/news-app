@@ -73,7 +73,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         viewModel =
             requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java)
 
-
         setupScrollEndListener()
 
         observe()
@@ -107,6 +106,17 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
             )
             viewModel.getNews(daysBack)
         }
+
+        binding.searchButton.setOnClickListener { search() }
+    }
+
+    private fun search() {
+        if(binding.searchField.text.isNotBlank()){
+            viewModel.getNews(0)
+        }
+        else{
+            viewModel.searchNews(binding.searchField.text.toString())
+        }
     }
 
     private fun setupScrollEndListener() {
@@ -130,7 +140,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         })
     }
 
-    fun observe() {
+    private fun observe() {
         viewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Status.DATA -> {

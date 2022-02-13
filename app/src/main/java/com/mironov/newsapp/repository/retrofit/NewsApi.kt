@@ -15,4 +15,13 @@ interface NewsApi {
         @Query("to") dateTo: String,
         @Query("apiKey") apiKey: String
     ): Single<JsonResponse?>
+
+    @GET("everything")
+    fun searchNews(
+        @Query("q") query: String,
+        @Query("pageSize") pageSize: Int,
+        @Query("domains") domains: String,
+        @Query("language") language: String,
+        @Query("apiKey") apiKey: String
+    ): Single<JsonResponse?>
 }

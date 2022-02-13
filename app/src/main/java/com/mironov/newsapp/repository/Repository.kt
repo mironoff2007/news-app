@@ -44,6 +44,22 @@ class Repository @Inject constructor(
         )
     }
 
+    fun searchNews(
+        query:String,
+        pageSize:Int,
+        domains: String,
+        language: String,
+        apiKey: String
+    ): Single<JsonResponse?> {
+        return retrofit.searchNews(
+            query =query,
+            pageSize =pageSize,
+            domains = domains,
+            language = language,
+            apiKey = apiKey
+        )
+    }
+
     fun saveNewsToDb(articles:ArrayList<Article>){
         articles.forEach{article ->  article.date=DateUtil.convertDate(article.publishedAt)}
         articleBD.articleDao().insertAllArticles(articles)

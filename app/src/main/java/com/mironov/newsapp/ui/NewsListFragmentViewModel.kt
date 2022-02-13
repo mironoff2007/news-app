@@ -78,4 +78,28 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
             .subscribe({ response ->
             }, { throwable -> status.postValue(Status.ERROR(throwable.toString())) })
     }
+
+    @SuppressLint("CheckResult")
+    fun searchNews(query:String) {
+        status.postValue(Status.LOADING)
+        repository.searchNews(
+            query,
+            NEWS_PAGE_SIZE,
+            NEWS_SOURCES_DOMAINS,
+            NEWS_LANGUAGE,
+            API_KEY
+        )
+            .doOnSuccess { response ->
+                if (response!!.status == "ok") {
+                    status.postValue(Status.DATA(response.articles))
+                    repository.saveNewsToDb(response!!.articles!!)
+                } else {
+                    status.postValue(Status.ERROR(response.message.toString()))
+                }
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ response ->
+            }, { throwable -> status.postValue(Status.ERROR(throwable.toString())) })
+    }
 }
