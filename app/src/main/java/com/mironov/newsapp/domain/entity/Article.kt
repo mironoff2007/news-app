@@ -1,4 +1,4 @@
-package com.mironov.newsapp.repository.retrofit
+package com.mironov.newsapp.domain.entity
 
 import android.os.Parcelable
 import androidx.room.Entity

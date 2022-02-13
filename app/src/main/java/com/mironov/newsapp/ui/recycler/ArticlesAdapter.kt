@@ -16,11 +16,7 @@ class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleVi
     private val binding get() = _binding!!
 
     var articles: ArrayList<Article> = ArrayList()
-        @SuppressLint("NotifyDataSetChanged")
-        set(newValue) {
-            field = newValue
-            notifyDataSetChanged()
-        }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val inflater = LayoutInflater.from(parent.context)

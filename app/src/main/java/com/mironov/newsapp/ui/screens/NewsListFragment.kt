@@ -89,6 +89,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     loading=false
                     binding.progressBar.visibility=View.GONE
                     adapter.articles.addAll(status.articles!!)
+                    adapter.notifyDataSetChanged()
                 }
                 is Status.LOADING -> {
                     loading=true

@@ -9,12 +9,13 @@ import com.mironov.newsapp.repository.room.ArticleDatabase
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.util.ArrayList
 import javax.inject.Inject
 
 class Repository @Inject constructor(
     protected val dataShared: DataShared,
     protected val retrofit: NewsApi,
-    protected val articleBD:ArticleDatabase
+    protected val articleBD: ArticleDatabase
 ) {
 
     fun setNotFirstStartUp() {

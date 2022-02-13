@@ -1,4 +1,4 @@
-package com.mironov.newsapp.repository
+package com.mironov.newsapp.repository.room
 
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
