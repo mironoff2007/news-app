@@ -187,4 +187,8 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     }
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.dispose()
+    }
 }
