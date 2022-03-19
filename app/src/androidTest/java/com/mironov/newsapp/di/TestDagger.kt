@@ -5,8 +5,8 @@ import com.mironov.newsapp.RetrofitInstrumentedTest
 import dagger.*
 
 
-@Component(modules = [AppModule::class,RetrofitModule::class])
-
+@Component(modules = [AppModule::class,RetrofitModule::class, RoomModule::class])
+@AppScope
 interface TestAppComponent {
 
     fun inject(retrofitInstrumentedTest:RetrofitInstrumentedTest )
