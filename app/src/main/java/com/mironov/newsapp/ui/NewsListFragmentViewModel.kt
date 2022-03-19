@@ -17,7 +17,7 @@ import javax.inject.Inject
 class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
 
     companion object {
-        const val NEWS_SOURCES_DOMAINS = "bbc.com"
+        const val NEWS_SOURCES_DOMAINS = "lenta.ru"
         const val NEWS_LANGUAGE = "ru"
         const val NEWS_PAGE_SIZE = 100
         const val API_KEY = "9fa809116bea45fa81e3d193cbaec5f0"
