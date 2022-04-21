@@ -13,10 +13,6 @@ import com.mironov.newsapp.ui.MainActivity
 
 class SplashFragment : BaseFragment<FragmentSplashScreenBinding>() {
 
-    companion object{
-        const val TAG_SPLASH_SCREEN_FRAGMENT="TAG_SPLASH_SCREEN_FRAGMENT"
-    }
-
     override fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -48,4 +44,7 @@ class SplashFragment : BaseFragment<FragmentSplashScreenBinding>() {
         //requireContext().appComponent.inject(this)
     }
 
+    companion object{
+        const val TAG_SPLASH_SCREEN_FRAGMENT="TAG_SPLASH_SCREEN_FRAGMENT"
+    }
 }

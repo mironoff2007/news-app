@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by lazy { applicationContext.appComponent.factory.create(MainViewModel::class.java) }
 
     private lateinit var observer : Observer<Boolean>
 
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
 
             //background tasks while splash is showing
-            viewModel = applicationContext.appComponent.factory.create(MainViewModel::class.java)
 
             viewModel.checkFirstRun()
         }
@@ -53,20 +52,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFragmentOnSplashEnd(isFirstRun:Boolean) {
-        if (isFirstRun) {
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.fragment_container,
-                    GreetingFragment(), TAG_GREETING_FRAGMENT
-                )
-                .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.fragment_container,
-                    NewsListFragment(), TAG_NEWS_LIST_FRAGMENT
-                )
-                .commit()
-        }
+        val fragment = if (isFirstRun) GreetingFragment() else NewsListFragment()
+        val tag = if (isFirstRun) TAG_GREETING_FRAGMENT else TAG_NEWS_LIST_FRAGMENT
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment, tag)
+            .commit()
     }
 }

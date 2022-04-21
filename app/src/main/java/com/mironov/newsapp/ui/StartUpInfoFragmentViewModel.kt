@@ -4,10 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.mironov.newsapp.repository.Repository
 import javax.inject.Inject
 
-class StartUpInfoFragmentViewModel @Inject constructor():ViewModel() {
-
-    @Inject
-    protected lateinit var repository: Repository
+class StartUpInfoFragmentViewModel @Inject constructor(var repository: Repository):ViewModel() {
 
     fun setNotFirstRun() {
         repository.setNotFirstStartUp()

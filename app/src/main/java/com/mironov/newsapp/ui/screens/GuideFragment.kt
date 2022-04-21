@@ -18,11 +18,7 @@ import kotlinx.android.synthetic.main.fragment_info.view.*
 
 class GuideFragment : BaseFragment<FragmentInfoBinding>() {
 
-    companion object {
-        const val TAG_GUIDE_FRAGMENT = "TAG_GUIDE_FRAGMENT"
-    }
-
-    private lateinit var viewModel: StartUpInfoFragmentViewModel
+    private val viewModel by lazy { requireContext().appComponent.factory.create(StartUpInfoFragmentViewModel::class.java) }
 
     override fun initBinding(
         inflater: LayoutInflater,
@@ -32,8 +28,6 @@ class GuideFragment : BaseFragment<FragmentInfoBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = requireContext().appComponent.factory.create(StartUpInfoFragmentViewModel::class.java)
 
         //Go back
         binding.buttonBack.setOnClickListener {
@@ -61,4 +55,7 @@ class GuideFragment : BaseFragment<FragmentInfoBinding>() {
         requireContext().appComponent.inject(this)
     }
 
+    companion object {
+        const val TAG_GUIDE_FRAGMENT = "TAG_GUIDE_FRAGMENT"
+    }
 }

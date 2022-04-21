@@ -23,14 +23,10 @@ import javax.inject.Inject
 
 class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
-    companion object {
-        const val TAG_NEWS_LIST_FRAGMENT = "TAG_NEWS_LIST_FRAGMENT"
-    }
-
     @Inject
     lateinit var glide: RequestManager
 
-    private lateinit var viewModel: NewsListFragmentViewModel
+    private val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
 
     private var adapter: ArticlesAdapter?=null
 
@@ -70,8 +66,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =
-            requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java)
 
         setupScrollEndListener()
 
@@ -190,5 +184,9 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     override fun onDestroy() {
         super.onDestroy()
         viewModel.dispose()
+    }
+
+    companion object {
+        const val TAG_NEWS_LIST_FRAGMENT = "TAG_NEWS_LIST_FRAGMENT"
     }
 }

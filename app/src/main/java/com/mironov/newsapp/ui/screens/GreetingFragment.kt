@@ -17,11 +17,7 @@ import kotlinx.android.synthetic.main.fragment_info.view.*
 
 class GreetingFragment : BaseFragment<FragmentInfoBinding>() {
 
-    companion object{
-        const val TAG_GREETING_FRAGMENT="TAG_GREETING_FRAGMENT"
-    }
-
-    private lateinit var viewModel: StartUpInfoFragmentViewModel
+    private val viewModel by lazy { requireContext().appComponent.factory.create(StartUpInfoFragmentViewModel::class.java) }
 
     override fun initBinding(
         inflater: LayoutInflater,
@@ -32,9 +28,7 @@ class GreetingFragment : BaseFragment<FragmentInfoBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = requireContext().appComponent.factory.create(StartUpInfoFragmentViewModel::class.java)
-
-        binding.buttonBack.visibility=View.INVISIBLE
+        binding.buttonBack.visibility = View.INVISIBLE
         //accept
         binding.accept.setOnClickListener {
             viewModel.setNotFirstRun()
@@ -65,4 +59,7 @@ class GreetingFragment : BaseFragment<FragmentInfoBinding>() {
         requireContext().appComponent.inject(this)
     }
 
+    companion object{
+        const val TAG_GREETING_FRAGMENT="TAG_GREETING_FRAGMENT"
+    }
 }

@@ -9,22 +9,11 @@ import com.mironov.newsapp.domain.entity.Status
 import com.mironov.newsapp.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.ArrayList
 import javax.inject.Inject
 
-class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
-
-    companion object {
-        const val NEWS_SOURCES_DOMAINS = "lenta.ru"
-        const val NEWS_LANGUAGE = "ru"
-        const val NEWS_PAGE_SIZE = 100
-        const val API_KEY = "9fa809116bea45fa81e3d193cbaec5f0"
-    }
-
-    @Inject
-    protected lateinit var repository: Repository
+class NewsListFragmentViewModel @Inject constructor(var repository: Repository) : ViewModel() {
 
     var statusNewsByDate = MutableLiveData<Status>()
 
@@ -102,5 +91,12 @@ class NewsListFragmentViewModel @Inject constructor() : ViewModel() {
 
     fun dispose(){
         disposables.dispose()
+    }
+
+    companion object {
+        const val NEWS_SOURCES_DOMAINS = "lenta.ru"
+        const val NEWS_LANGUAGE = "ru"
+        const val NEWS_PAGE_SIZE = 100
+        const val API_KEY = "9fa809116bea45fa81e3d193cbaec5f0"
     }
 }
