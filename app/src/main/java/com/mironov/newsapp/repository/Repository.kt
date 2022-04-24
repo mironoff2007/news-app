@@ -35,7 +35,7 @@ class Repository @Inject constructor(
         apiKey: String
     ): Single<JsonResponse?> {
         return retrofit.getNews(
-            pageSize =pageSize,
+            pageSize = pageSize,
             domains = domains,
             language = language,
             dateFrom = dateFrom,

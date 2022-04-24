@@ -1,5 +1,6 @@
 package com.mironov.newsapp.ui.screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,7 +36,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
     private var lockScrollUpdate = false
 
-
     private val listener = object : ArticlesAdapter.ItemClickListener<ArticleViewHolder> {
         override fun onClickListener(item: ArticleViewHolder) {
 
@@ -64,6 +64,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         requireContext().appComponent.inject(this)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -72,17 +73,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         observeNewsByDate()
         observeNewsSearch()
 
-        if(adapter!=null){
-
-            val layoutManager = LinearLayoutManager(this.requireContext())
-            binding.recyclerView.layoutManager = layoutManager
-            binding.recyclerView.adapter = adapter
-            binding.recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                    binding.recyclerView.context,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
+        if(adapter != null){
             binding.progressBar.visibility = View.GONE
             adapter!!.notifyDataSetChanged()
         }
@@ -90,26 +81,27 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
             adapter = ArticlesAdapter(glide)
             adapter!!.listener = listener
 
-            val layoutManager = LinearLayoutManager(this.requireContext())
-            binding.recyclerView.layoutManager = layoutManager
-            binding.recyclerView.adapter = adapter
-            binding.recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                    binding.recyclerView.context,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
             viewModel.getNews(daysBack)
         }
+
+        val layoutManager = LinearLayoutManager(this.requireContext())
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                binding.recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         binding.searchButton.setOnClickListener { search() }
     }
 
     private fun search() {
-        daysBack=0
+        daysBack = 0
         adapter!!.articles.clear()
         if(binding.searchField.text.isNotBlank()){
-            lockScrollUpdate=true
+            lockScrollUpdate = true
             viewModel.searchNews(binding.searchField.text.toString())
         }
         else{
@@ -162,7 +154,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
             when (status) {
                 is Status.DATA -> {
                     binding.progressBar.visibility = View.GONE
-                    daysBack=0
+                    daysBack = 0
                     adapter!!.articles.clear()
                     adapter!!.articles.addAll(status.articles!!)
                     adapter!!.notifyDataSetChanged()

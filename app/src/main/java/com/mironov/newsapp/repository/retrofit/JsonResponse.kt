@@ -17,7 +17,7 @@ class JsonResponse {
     var totalResults: String? = null
 
     @SerializedName("articles")
-    var articles: ArrayList<Article>?=null
+    var articles: ArrayList<Article>? = null
 }
 
 

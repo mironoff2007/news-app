@@ -17,7 +17,16 @@ import javax.inject.Scope
 @Scope
 annotation class AppScope
 
-@Component(modules = [RepositoryModule::class, DataSharedModule::class, RetrofitModule::class, ViewModelModule::class, GlideModule::class, RoomModule::class])
+@Component(modules = [
+    RepositoryModule::class,
+    DataSharedModule::class,
+    RetrofitModule::class,
+    ViewModelModule::class,
+    GlideModule::class,
+    RoomModule::class,
+    ResourcesModule::class
+])
+
 @AppScope
 interface AppComponent  {
     fun inject(activity: MainActivity)

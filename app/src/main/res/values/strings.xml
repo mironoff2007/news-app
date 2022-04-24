@@ -4,6 +4,8 @@
     <string name="guide_header">Guide</string>
     <string name="greetings_text">Greetings</string>
     <string name="greetings_info">This is news app</string>
-    <string name="aticles_db_name">aticles_db</string>
+    <string name="articles_db_name">articles_db</string>
     <string name="search">search</string>
+    <string name="status_name_ok">ok</string>
+    <string name="unknown_error">unknown error</string>
 </resources>

@@ -25,7 +25,7 @@ abstract class ArticleDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ArticleDatabase::class.java,
-                    context.getString(R.string.aticles_db_name)
+                    context.getString(R.string.articles_db_name)
                 ).setJournalMode(JournalMode.TRUNCATE).build()
 
                 INSTANCE = instance
