@@ -21,20 +21,23 @@ class ArticleViewHolder(
     ){
         with(binding) {
 
+
             glide.asDrawable()
                 .placeholder(R.drawable.ic_time)
                 .error(R.drawable.ic_error)
                 .load(article.urlToImage)
-                .into(image)
+                .into(preview)
 
             title.text = article.title
 
+            time?.text = DateUtil.convertTime(article.publishedAt)
+
             if (divide){
-                dateRow.visibility=View.VISIBLE
-                dateText.text=DateUtil.convertDate(article.publishedAt!!)
+                dateRow.visibility = View.VISIBLE
+                dateText.text = DateUtil.convertDate(article.publishedAt)
             }
             else{
-                dateRow.visibility=View.GONE
+                dateRow.visibility = View.GONE
             }
         }
 

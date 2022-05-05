@@ -27,7 +27,7 @@ class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleVi
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        var divide=false
+        var divide = false
         if (position == 0){
             divide=true
         }
@@ -38,7 +38,6 @@ class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleVi
                 divide=true
             }
         }
-
 
         holder.bind(glide,articles[position],divide,listener)
     }

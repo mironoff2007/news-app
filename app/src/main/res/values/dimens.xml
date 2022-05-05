@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="info_buttons_margin">20dp</dimen>
-    <dimen name="article_top_margin">30dp</dimen>
+    <dimen name="info_buttons_margin">10dp</dimen>
+    <dimen name="article_top_margin">10dp</dimen>
     <dimen name="article_description_left_right_margins">20dp</dimen>
     <dimen name="search_field_margins">20dp</dimen>
 
