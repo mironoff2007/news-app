@@ -96,8 +96,10 @@ class NewsListFragmentViewModel @Inject constructor(private val repository: Repo
                         statusNewsSearch.postValue(Status.ERROR(response?.message ?: stringsProvider.getString(R.string.unknown_error)))
                     }
                 }
+                .doOnError { throwable -> statusNewsSearch.postValue(Status.ERROR(throwable.toString())) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({}, { throwable -> statusNewsSearch.postValue(Status.ERROR(throwable.toString())) })
+
         )
     }
 
@@ -106,7 +108,7 @@ class NewsListFragmentViewModel @Inject constructor(private val repository: Repo
     }
 
     companion object {
-        const val NEWS_SOURCES_DOMAINS = "lenta.ru"
+        const val NEWS_SOURCES_DOMAINS = "vedomosti.ru"
         const val NEWS_LANGUAGE = "ru"
         const val NEWS_PAGE_SIZE = 100
         const val API_KEY = "9fa809116bea45fa81e3d193cbaec5f0"

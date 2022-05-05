@@ -29,7 +29,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
     private val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
 
-    private var adapter: ArticlesAdapter?=null
+    private var adapter: ArticlesAdapter? = null
 
     private var daysBack = 0
     private var daysBackLast = 0
@@ -41,7 +41,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
             val fragment = DetailsFragment()
             val argumentsDetails = Bundle()
-            argumentsDetails.putParcelable(KEY_ARTICLE, adapter!!.articles[item.position])
+            argumentsDetails.putParcelable(KEY_ARTICLE, adapter!!.articles[item.layoutPosition])
 
             fragment.arguments = argumentsDetails
 
@@ -87,12 +87,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         val layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                binding.recyclerView.context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
 
         binding.searchButton.setOnClickListener { search() }
     }
@@ -119,7 +113,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     viewModel.getNews(daysBack)
 
                 }
-                daysBackLast=daysBack
+                daysBackLast = daysBack
             }
         })
     }
@@ -139,9 +133,15 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                 }
                 is Status.ERROR -> {
                     lockScrollUpdate = false
-                    daysBack=daysBackLast
+                    daysBack = daysBackLast
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
+                }
+                is Status.EMPTY -> {
+                    lockScrollUpdate = false
+                    daysBack = daysBackLast
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), getString(R.string.no_news), Toast.LENGTH_LONG).show()
                 }
                 else -> {
                 }
@@ -156,7 +156,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     binding.progressBar.visibility = View.GONE
                     daysBack = 0
                     adapter!!.articles.clear()
-                    adapter!!.articles.addAll(status.articles!!)
+                    adapter!!.articles?.addAll(status.articles!!)
                     adapter!!.notifyDataSetChanged()
                 }
                 is Status.LOADING -> {
@@ -165,6 +165,12 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                 is Status.ERROR -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
+                }
+                is Status.EMPTY -> {
+                    lockScrollUpdate = false
+                    daysBack = daysBackLast
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), getString(R.string.no_news), Toast.LENGTH_LONG).show()
                 }
                 else -> {
                 }
