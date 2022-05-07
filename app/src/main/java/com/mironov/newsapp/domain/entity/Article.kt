@@ -4,9 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.mironov.newsapp.domain.DateUtil
 import kotlinx.android.parcel.Parcelize
-
 
 @Parcelize
 @Entity
@@ -29,8 +27,8 @@ data class Article(
     @SerializedName("publishedAt")
     @PrimaryKey
     var publishedAt: String
-) :Parcelable{
+) : Parcelable {
 
-    var date:String?=null
+    var date: String? = null
 
 }

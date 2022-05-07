@@ -5,21 +5,15 @@ import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mironov.newsapp.di.TestAppComponent
-import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.di.DaggerTestAppComponent
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.repository.Repository
-import io.reactivex.Observable
-import io.reactivex.Single
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
-import retrofit2.Call
-import retrofit2.Response
 import javax.inject.Inject
-
 
 @RunWith(AndroidJUnit4::class)
 class RetrofitInstrumentedTest {
@@ -34,7 +28,6 @@ class RetrofitInstrumentedTest {
             .context(appContext)
             .build()
         appComponent.inject(this)
-
     }
 
     @Inject
@@ -64,4 +57,5 @@ class RetrofitInstrumentedTest {
 
         assertEquals(true, response?.status == "ok")
     }
+
 }

@@ -53,6 +53,7 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    debugImplementation("androidx.fragment:fragment-testing:1.4.1")
 
     //Recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
