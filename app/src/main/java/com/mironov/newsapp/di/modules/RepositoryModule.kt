@@ -1,4 +1,4 @@
-package com.mironov.newsapp.di
+package com.mironov.newsapp.di.modules
 
 import com.mironov.newsapp.repository.DataShared
 import com.mironov.newsapp.repository.Repository

@@ -1,11 +1,10 @@
 package com.mironov.newsapp.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mironov.newsapp.R
-import com.mironov.newsapp.di.StringsProviderModule
+import com.mironov.newsapp.di.modules.StringsProviderModule
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status

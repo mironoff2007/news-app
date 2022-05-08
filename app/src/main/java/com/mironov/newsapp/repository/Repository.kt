@@ -6,8 +6,6 @@ import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.repository.room.ArticleDatabase
-import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.ArrayList
 import javax.inject.Inject

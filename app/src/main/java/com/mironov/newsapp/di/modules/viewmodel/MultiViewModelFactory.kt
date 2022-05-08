@@ -1,4 +1,4 @@
-package com.mironov.newsapp.di.viewmodel
+package com.mironov.newsapp.di.modules.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

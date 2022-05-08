@@ -11,6 +11,7 @@ import com.mironov.newsapp.ui.screens.NewsListFragment
 import dagger.*
 import javax.inject.Scope
 
+
 @Component(modules = [
     RepositoryModule::class,
     DataSharedModule::class,
@@ -22,7 +23,7 @@ import javax.inject.Scope
 ])
 
 @AppScope
-interface AppComponent:DaggerInterface {
+interface EspressoAppComponent:DaggerInterface {
     override fun inject(activity: MainActivity)
     override fun inject(newsListFragment: NewsListFragment)
     override fun inject(greetingFragment: GreetingFragment)
@@ -34,7 +35,7 @@ interface AppComponent:DaggerInterface {
     @Component.Builder
     interface Builder {
 
-        fun build(): AppComponent
+        fun build(): EspressoAppComponent
 
         @BindsInstance
         fun context(context: Context): Builder

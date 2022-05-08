@@ -17,17 +17,10 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class DetailsFragmentTest {
-    private lateinit var appComponent: TestAppComponent
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-
-        appComponent = DaggerTestAppComponent.builder()
-            .context(appContext)
-            .build()
-        appComponent.inject(this)
 
     }
 

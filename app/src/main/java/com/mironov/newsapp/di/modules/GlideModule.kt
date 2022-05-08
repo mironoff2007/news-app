@@ -1,4 +1,4 @@
-package com.mironov.newsapp.di
+package com.mironov.newsapp.di.modules
 
 import android.content.Context
 import com.bumptech.glide.Glide
@@ -8,6 +8,7 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
+import com.mironov.newsapp.di.AppScope
 import com.mironov.newsapp.repository.retrofit.UnsafeOkHttpClient
 import dagger.Module
 import dagger.Provides

@@ -1,7 +1,7 @@
-package com.mironov.newsapp.di
+package com.mironov.newsapp.di.modules
 
 import androidx.lifecycle.ViewModel
-import com.mironov.newsapp.di.viewmodel.ViewModelKey
+import com.mironov.newsapp.di.modules.viewmodel.ViewModelKey
 import com.mironov.newsapp.ui.MainViewModel
 import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.ui.StartUpInfoFragmentViewModel

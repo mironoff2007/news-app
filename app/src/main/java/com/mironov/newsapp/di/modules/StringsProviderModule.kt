@@ -1,4 +1,4 @@
-package com.mironov.newsapp.di
+package com.mironov.newsapp.di.modules
 
 import androidx.annotation.StringRes
 

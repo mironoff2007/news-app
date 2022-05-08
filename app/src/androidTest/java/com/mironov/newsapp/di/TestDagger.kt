@@ -3,6 +3,7 @@ package com.mironov.newsapp.di
 import android.content.Context
 import com.mironov.newsapp.DetailsFragmentTest
 import com.mironov.newsapp.RetrofitInstrumentedTest
+import com.mironov.newsapp.di.modules.*
 import dagger.*
 
 
@@ -19,7 +20,6 @@ import dagger.*
 interface TestAppComponent {
 
     fun inject(retrofitInstrumentedTest: RetrofitInstrumentedTest)
-    fun inject(detailsFragmentTest: DetailsFragmentTest)
 
     @Component.Builder
     interface Builder {
