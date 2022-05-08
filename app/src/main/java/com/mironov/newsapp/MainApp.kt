@@ -4,12 +4,12 @@ import android.app.Application
 import android.content.Context
 import com.mironov.newsapp.di.*
 
-class MainApp : Application() {
+class MainApp: Application() {
 
     @Synchronized
-    fun isRunningTest(): Boolean {
+    fun isTest(): Boolean {
         val isTest: Boolean = try {
-            Class.forName("androidx.test.espresso.Espresso")
+            Class.forName("org.junit.runner.Runner")
             true
         } catch (e: ClassNotFoundException) {
             false
@@ -22,9 +22,9 @@ class MainApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val isTest = isRunningTest()
+        val isTest = isTest()
         appComponent = if (isTest) {
-            DaggerEspressoAppComponent.builder()
+            DaggerTestAppComponent.builder()
                 .context(this)
                 .build()
         } else {
