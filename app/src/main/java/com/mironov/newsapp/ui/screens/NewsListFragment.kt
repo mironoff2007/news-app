@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,7 +53,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         }
     }
 
-
     override fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -80,7 +80,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         else{
             adapter = ArticlesAdapter(glide)
             adapter!!.listener = listener
-
             viewModel.getNews(daysBack)
         }
 
@@ -88,13 +87,13 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = layoutManager
 
-        binding.searchButton.setOnClickListener { search() }
+        binding.searchField.doOnTextChanged { text, _, _, _ -> search(text.toString()) }
     }
 
-    private fun search() {
+    private fun search(searchBy: String) {
         daysBack = 0
         adapter!!.articles.clear()
-        if(binding.searchField.text.isNotBlank()){
+        if(searchBy.isNotBlank()){
             lockScrollUpdate = true
             viewModel.searchNews(binding.searchField.text.toString())
         }
@@ -111,7 +110,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     lockScrollUpdate = true
                     daysBack++
                     viewModel.getNews(daysBack)
-
                 }
                 daysBackLast = daysBack
             }
@@ -177,7 +175,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
             }
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

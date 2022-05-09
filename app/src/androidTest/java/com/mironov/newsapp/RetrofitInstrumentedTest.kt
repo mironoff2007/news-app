@@ -34,7 +34,7 @@ class RetrofitInstrumentedTest: RetrofitTest() {
 
         repo.getNews(
             100,
-            "lenta.ru",
+            "vedomosti.ru",
             "ru",
             dateFrom = DateUtil.getTodayDate(),
             dateTo = DateUtil.getPreviousDayDate(2),
