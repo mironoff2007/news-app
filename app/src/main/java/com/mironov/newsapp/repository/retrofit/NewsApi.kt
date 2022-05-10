@@ -9,10 +9,11 @@ interface NewsApi {
     @GET("everything")
     fun getNews(
         @Query("pageSize") pageSize: Int,
-        @Query("domains") domains: String,
+        @Query("domains") domains: String? = null,
+        @Query("sources") sources: String? = null,
         @Query("language") language: String,
-        @Query("from") dateFrom: String,
-        @Query("to") dateTo: String,
+        @Query("dateFrom") dateFrom: String,
+        @Query("dateTo") dateTo: String,
         @Query("apiKey") apiKey: String
     ): Single<JsonResponse?>
 
@@ -20,7 +21,8 @@ interface NewsApi {
     fun searchNews(
         @Query("q") query: String,
         @Query("pageSize") pageSize: Int,
-        @Query("domains") domains: String,
+        @Query("domains") domains: String? = null,
+        @Query("sources") sources: String? = null,
         @Query("language") language: String,
         @Query("apiKey") apiKey: String
     ): Single<JsonResponse?>

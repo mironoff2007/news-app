@@ -7,7 +7,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mironov.newsapp.di.*
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.domain.DateUtil
+import com.mironov.newsapp.domain.NewsResources
 import com.mironov.newsapp.test.RetrofitTest
+import com.mironov.newsapp.ui.NewsListFragmentViewModel
+import com.mironov.newsapp.ui.NewsListFragmentViewModel.Companion.API_KEY
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*
@@ -33,12 +36,13 @@ class RetrofitInstrumentedTest: RetrofitTest() {
         var response: JsonResponse? = null
 
         repo.getNews(
-            100,
-            "vedomosti.ru",
-            "ru",
+            pageSize = 10,
+            domains = NewsResources.RBC.domain ?:"",
+            sources =  NewsResources.RBC.source ?:"",
+            language = NewsListFragmentViewModel.NEWS_LANGUAGE,
+            apiKey = API_KEY,
             dateFrom = DateUtil.getTodayDate(),
-            dateTo = DateUtil.getPreviousDayDate(2),
-            "d6856a153473471887a271c3cd90b31e"
+            dateTo = DateUtil.getPreviousDayDate(1),
         )
             .doOnSuccess {
                 Log.d("My_tag", "Success")
@@ -47,6 +51,7 @@ class RetrofitInstrumentedTest: RetrofitTest() {
             .doOnError() { Log.d("My_tag", it.toString()) }
             .subscribe()
         Log.d("My_tag", response.toString())
+        Log.d("My_tag", response?.articles?.size.toString())
 
         assertEquals(true, response?.status == "ok")
     }

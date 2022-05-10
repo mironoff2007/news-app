@@ -6,22 +6,32 @@ import androidx.lifecycle.ViewModel
 import com.mironov.newsapp.R
 import com.mironov.newsapp.di.modules.StringsProviderModule
 import com.mironov.newsapp.domain.DateUtil
+import com.mironov.newsapp.domain.NewsResourceUseCase
+import com.mironov.newsapp.domain.NewsResources
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
 import com.mironov.newsapp.repository.Repository
+import com.mironov.newsapp.repository.retrofit.JsonResponse
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.ArrayList
 import javax.inject.Inject
 
-class NewsListFragmentViewModel @Inject constructor(private val repository: Repository, private val stringsProvider: StringsProviderModule.StringsProvider) : ViewModel() {
+class NewsListFragmentViewModel @Inject constructor(
+    private val repository: Repository,
+    private val stringsProvider: StringsProviderModule.StringsProvider,
+    private val newsResourceUseCase: NewsResourceUseCase
+) : ViewModel() {
 
     var statusNewsByDate = MutableLiveData<Status>()
 
     var statusNewsSearch = MutableLiveData<Status>()
 
     private var disposables = CompositeDisposable()
+
+    private val source: NewsResources = NewsResources.RBC
 
     @SuppressLint("CheckResult")
     fun getNews(daysBack: Int) {
@@ -49,15 +59,20 @@ class NewsListFragmentViewModel @Inject constructor(private val repository: Repo
     fun getNewsFromWeb(daysBack: Int) {
         val date = DateUtil.getPreviousDayDate(daysBack)
         statusNewsByDate.postValue(Status.LOADING)
-        disposables.add(
+
+        val requestGetNews: (domain: String?, source: String?) -> Single<JsonResponse?> = { domain, source ->
             repository.getNews(
                 pageSize = NEWS_PAGE_SIZE,
-                domains = NEWS_SOURCES_DOMAINS,
+                domains = domain ?: "",
+                sources =  source ?: "",
                 language = NEWS_LANGUAGE,
                 dateFrom = date,
                 dateTo = date,
                 apiKey = API_KEY
             )
+        }
+        disposables.add(
+            newsResourceUseCase.execute(requestGetNews, source)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { response ->
                     if (response?.status == stringsProvider.getString(R.string.status_name_ok)) {
@@ -76,14 +91,20 @@ class NewsListFragmentViewModel @Inject constructor(private val repository: Repo
     @SuppressLint("CheckResult")
     fun searchNews(query: String) {
         statusNewsSearch.postValue(Status.LOADING)
-        disposables.add(
+
+        val requestSearchNews: (domain: String?, source: String?) -> Single<JsonResponse?> = { domain, source->
             repository.searchNews(
-                query,
-                NEWS_PAGE_SIZE,
-                NEWS_SOURCES_DOMAINS,
-                NEWS_LANGUAGE,
-                API_KEY
+                query = query,
+                pageSize = NEWS_PAGE_SIZE,
+                domains = domain ?: "",
+                sources =  source ?: "",
+                language = NEWS_LANGUAGE,
+                apiKey = API_KEY
             )
+        }
+
+        disposables.add(
+            newsResourceUseCase.execute(requestSearchNews, source)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { response ->
                     if (response?.status == stringsProvider.getString(R.string.status_name_ok)) {
@@ -107,7 +128,6 @@ class NewsListFragmentViewModel @Inject constructor(private val repository: Repo
     }
 
     companion object {
-        const val NEWS_SOURCES_DOMAINS = "vedomosti.ru"
         const val NEWS_LANGUAGE = "ru"
         const val NEWS_PAGE_SIZE = 100
         const val API_KEY = "9fa809116bea45fa81e3d193cbaec5f0"

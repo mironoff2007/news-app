@@ -27,6 +27,7 @@ class Repository @Inject constructor(
     fun getNews(
         pageSize:Int,
         domains: String,
+        sources: String,
         language: String,
         dateFrom: String,
         dateTo: String,
@@ -35,6 +36,7 @@ class Repository @Inject constructor(
         return retrofit.getNews(
             pageSize = pageSize,
             domains = domains,
+            sources = sources,
             language = language,
             dateFrom = dateFrom,
             dateTo = dateTo,
@@ -46,13 +48,15 @@ class Repository @Inject constructor(
         query:String,
         pageSize:Int,
         domains: String,
+        sources: String,
         language: String,
         apiKey: String
     ): Single<JsonResponse?> {
         return retrofit.searchNews(
-            query =query,
-            pageSize =pageSize,
+            query = query,
+            pageSize = pageSize,
             domains = domains,
+            sources = sources,
             language = language,
             apiKey = apiKey
         )
