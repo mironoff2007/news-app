@@ -3,6 +3,7 @@ package com.mironov.newsapp.di
 import android.content.Context
 import com.mironov.newsapp.di.modules.*
 import com.mironov.newsapp.di.modules.viewmodel.MultiViewModelFactory
+import com.mironov.newsapp.di.test_modules.RetrofitModuleTest
 import com.mironov.newsapp.test.RetrofitTest
 import com.mironov.newsapp.ui.MainActivity
 import com.mironov.newsapp.ui.screens.DetailsFragment
@@ -14,8 +15,9 @@ import dagger.*
 @Component(modules = [
     RepositoryModule::class,
     DataSharedModule::class,
-    RetrofitModule::class,
+    RetrofitModuleTest::class,
     ViewModelModule::class,
+    UseCaseModule::class,
     GlideModule::class,
     RoomModule::class,
     ResourcesModule::class

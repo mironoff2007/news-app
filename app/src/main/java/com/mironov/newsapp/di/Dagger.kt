@@ -16,6 +16,7 @@ import javax.inject.Scope
     DataSharedModule::class,
     RetrofitModule::class,
     ViewModelModule::class,
+    UseCaseModule::class,
     GlideModule::class,
     RoomModule::class,
     ResourcesModule::class
