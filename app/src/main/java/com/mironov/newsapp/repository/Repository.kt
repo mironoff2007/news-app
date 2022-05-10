@@ -7,13 +7,12 @@ import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.repository.room.ArticleDatabase
 import io.reactivex.Single
-import java.util.ArrayList
 import javax.inject.Inject
 
 class Repository @Inject constructor(
-    protected val dataShared: DataShared,
-    protected val retrofit: NewsApi,
-    protected val articleBD: ArticleDatabase
+    private val dataShared: DataShared,
+    private val retrofit: NewsApi,
+    private val articleBD: ArticleDatabase
 ) {
 
     fun setNotFirstStartUp() {
@@ -25,7 +24,7 @@ class Repository @Inject constructor(
     }
 
     fun getNews(
-        pageSize:Int,
+        pageSize: Int,
         domains: String,
         sources: String,
         language: String,
@@ -62,13 +61,13 @@ class Repository @Inject constructor(
         )
     }
 
-    fun saveNewsToDb(articles:ArrayList<Article>){
+    fun saveNewsToDb(articles: ArrayList<Article>) {
         articleBD.articleDao().insertAllArticles(articles)
     }
 
-    fun getNewsFromDbByDate(date:String): Single<List<Article>> {
-        val queryDate=DateUtil.convertDate(date)
-        val query="SELECT * FROM Article WHERE date='$queryDate'"
+    fun getNewsFromDbByDate(date: String): Single<List<Article>> {
+        val queryDate = DateUtil.convertDate(date)
+        val query = "SELECT * FROM Article WHERE date='$queryDate'"
         return articleBD.articleDao().readArticlesByDate(SimpleSQLiteQuery(query))
     }
 

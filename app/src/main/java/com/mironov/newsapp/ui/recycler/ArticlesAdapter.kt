@@ -9,7 +9,7 @@ import com.mironov.newsapp.databinding.ItemArticleBinding
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.entity.Article
 
-class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleViewHolder>() {
+class ArticlesAdapter(private val glide:RequestManager) : RecyclerView.Adapter<ArticleViewHolder>() {
 
     lateinit var listener: ItemClickListener<ArticleViewHolder>
 
@@ -28,18 +28,17 @@ class ArticlesAdapter(val glide:RequestManager) : RecyclerView.Adapter<ArticleVi
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         var divide = false
-        if (position == 0){
-            divide=true
-        }
-        else if (position > 1){
+        if (position == 0) {
+            divide = true
+        } else if (position > 1) {
             val datePrev = DateUtil.getDate(articles[position].publishedAt)
             val dateNext = DateUtil.getDate(articles[position - 1].publishedAt)
-            if(datePrev!=dateNext){
-                divide=true
+            if (datePrev != dateNext) {
+                divide = true
             }
         }
 
-        holder.bind(glide,articles[position],divide,listener)
+        holder.bind(glide, articles[position], divide, listener)
     }
 
     override fun getItemCount(): Int {

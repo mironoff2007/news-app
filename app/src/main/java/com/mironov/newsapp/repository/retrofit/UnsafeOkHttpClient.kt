@@ -10,6 +10,10 @@ import javax.net.ssl.SSLSession
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
+
+/**
+ * This Client is used to solve Glide SSL exception
+ */
 class UnsafeOkHttpClient {
 
     companion object {

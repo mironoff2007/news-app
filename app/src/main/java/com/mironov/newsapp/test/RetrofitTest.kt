@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 abstract class RetrofitTest {
     @Inject
-    lateinit var repo: Repository
+    protected lateinit var repo: Repository
 }

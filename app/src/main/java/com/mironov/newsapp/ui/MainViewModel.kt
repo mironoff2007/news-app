@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.mironov.newsapp.repository.Repository
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(var repository: Repository) : ViewModel() {
+class MainViewModel @Inject constructor(private var repository: Repository) : ViewModel() {
 
     var isFirstRun = MutableLiveData<Boolean>()
 
