@@ -28,7 +28,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     @Inject
     lateinit var glide: RequestManager
 
-    private val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
+     val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
 
     private var adapter: ArticlesAdapter? = null
 

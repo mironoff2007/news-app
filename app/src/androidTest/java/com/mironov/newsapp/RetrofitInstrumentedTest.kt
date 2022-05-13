@@ -8,7 +8,7 @@ import com.mironov.newsapp.di.DaggerTestAppComponent
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.NewsResources
 import com.mironov.newsapp.repository.retrofit.JsonResponse
-import com.mironov.newsapp.test.RetrofitTest
+import com.mironov.newsapp.di.tests_wrappers.RetrofitTest
 import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.ui.NewsListFragmentViewModel.Companion.API_KEY
 import org.junit.Assert.assertEquals
@@ -19,14 +19,18 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class RetrofitInstrumentedTest: RetrofitTest() {
 
-    private lateinit var appComponent: DaggerTestAppComponent
+    private var appComponent: DaggerTestAppComponent
+
+    init{
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
+        appComponent.injectTest(this)
+    }
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
-        appComponent.injectTest(this)
+
     }
 
     @SuppressLint("CheckResult")
@@ -57,6 +61,6 @@ class RetrofitInstrumentedTest: RetrofitTest() {
     }
 
     companion object{
-        const val TEST_TAG = "Test_Tag"
+        const val TEST_TAG = "Test_tag"
     }
 }

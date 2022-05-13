@@ -1,26 +1,28 @@
-package com.mironov.newsapp.repository
+package com.mironov.newsapp.repository.test
 
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.entity.Article
+import com.mironov.newsapp.repository.RepositoryApi
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.repository.room.ArticleDatabase
 import io.reactivex.Single
 import javax.inject.Inject
 
-class Repository @Inject constructor(
-    private val dataShared: DataShared,
+class RepositoryTest @Inject constructor(
     private val retrofit: NewsApi,
     private val articleBD: ArticleDatabase
-): RepositoryApi {
+) : RepositoryApi {
+
+    var isFirstStartup = false
 
     override fun setNotFirstStartUp() {
-        dataShared.setNotFirstStartUp()
+        isFirstStartup = false
     }
 
     override fun isFirstStartUp(): Boolean {
-        return dataShared.isFirstStartUp()
+        return isFirstStartup
     }
 
     override fun getNews(

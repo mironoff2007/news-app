@@ -1,4 +1,4 @@
-package com.mironov.newsapp.test
+package com.mironov.newsapp.di.tests_wrappers
 
 import com.mironov.newsapp.repository.Repository
 import javax.inject.Inject

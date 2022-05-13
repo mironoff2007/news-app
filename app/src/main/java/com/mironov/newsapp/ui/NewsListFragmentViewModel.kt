@@ -10,7 +10,7 @@ import com.mironov.newsapp.domain.NewsResourceUseCase
 import com.mironov.newsapp.domain.NewsResources
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
-import com.mironov.newsapp.repository.Repository
+import com.mironov.newsapp.repository.RepositoryApi
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +20,7 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class NewsListFragmentViewModel @Inject constructor(
-    private val repository: Repository,
+    private val repository: RepositoryApi,
     private val stringsProvider: StringsProviderModule.StringsProvider,
     private val newsResourceUseCase: NewsResourceUseCase
 ) : ViewModel() {
@@ -31,7 +31,7 @@ class NewsListFragmentViewModel @Inject constructor(
 
     private var disposables = CompositeDisposable()
 
-    private val source: NewsResources = NewsResources.RBC
+    private val source: NewsResources = NewsResources.LENTA
 
     @SuppressLint("CheckResult")
     fun getNews(daysBack: Int) {

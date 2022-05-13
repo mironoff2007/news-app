@@ -42,9 +42,13 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'com.google.android.material:material:1.5.0'
+
+    //Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    debugImplementation("androidx.fragment:fragment-testing:1.4.1")
 
     ext.daggerVersion = "2.37"
     implementation"com.google.dagger:dagger:$daggerVersion"
@@ -53,7 +57,7 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
-    debugImplementation("androidx.fragment:fragment-testing:1.4.1")
+
 
     //Recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
