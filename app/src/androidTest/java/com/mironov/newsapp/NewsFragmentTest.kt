@@ -1,6 +1,5 @@
 package com.mironov.newsapp
 
-
 import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.core.os.bundleOf
@@ -11,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mironov.newsapp.RetrofitInstrumentedTest.Companion.TEST_TAG
 import com.mironov.newsapp.di.DaggerTestAppComponent
+import com.mironov.newsapp.di.tests_wrappers.NewsFragmentTestInjector
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
 import com.mironov.newsapp.ui.NewsListFragmentViewModel
@@ -22,13 +22,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class NewsFragmentTest : com.mironov.newsapp.di.tests_wrappers.NewsFragmentTest() {
+class NewsFragmentTest : NewsFragmentTestInjector() {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
     private var viewModel: NewsListFragmentViewModel
-
 
     init{
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext

@@ -20,7 +20,7 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class NewsListFragmentViewModel @Inject constructor(
-    private val repository: RepositoryApi,
+    val repository: RepositoryApi,
     private val stringsProvider: StringsProviderModule.StringsProvider,
     private val newsResourceUseCase: NewsResourceUseCase
 ) : ViewModel() {

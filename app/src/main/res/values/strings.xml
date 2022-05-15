@@ -8,5 +8,6 @@
     <string name="search">search</string>
     <string name="status_name_ok">ok</string>
     <string name="unknown_error">unknown error</string>
-    <string name="no_news">нет новостей</string>
+    <string name="no_news">No news</string>
+    <string name="dragToLoad">Drag to load previous news</string>
 </resources>

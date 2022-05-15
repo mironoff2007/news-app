@@ -8,6 +8,7 @@ import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.repository.retrofit.NewsApi
 import com.mironov.newsapp.repository.room.ArticleDatabase
 import io.reactivex.Single
+import io.reactivex.Single.just
 import javax.inject.Inject
 
 class RepositoryTest @Inject constructor(
@@ -34,15 +35,8 @@ class RepositoryTest @Inject constructor(
         dateTo: String,
         apiKey: String
     ): Single<JsonResponse?> {
-        return retrofit.getNews(
-            pageSize = pageSize,
-            domains = domains,
-            sources = sources,
-            language = language,
-            dateFrom = dateFrom,
-            dateTo = dateTo,
-            apiKey = apiKey
-        )
+        return just(JsonResponse())
+
     }
 
     override fun searchNews(
@@ -53,14 +47,7 @@ class RepositoryTest @Inject constructor(
         language: String,
         apiKey: String
     ): Single<JsonResponse?> {
-        return retrofit.searchNews(
-            query = query,
-            pageSize = pageSize,
-            domains = domains,
-            sources = sources,
-            language = language,
-            apiKey = apiKey
-        )
+        return just(JsonResponse())
     }
 
     override fun saveNewsToDb(articles: ArrayList<Article>) {

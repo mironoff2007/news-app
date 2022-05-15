@@ -8,7 +8,7 @@ import com.mironov.newsapp.di.DaggerTestAppComponent
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.NewsResources
 import com.mironov.newsapp.repository.retrofit.JsonResponse
-import com.mironov.newsapp.di.tests_wrappers.RetrofitTest
+import com.mironov.newsapp.di.tests_wrappers.RetrofitTestInjector
 import com.mironov.newsapp.ui.NewsListFragmentViewModel
 import com.mironov.newsapp.ui.NewsListFragmentViewModel.Companion.API_KEY
 import org.junit.Assert.assertEquals
@@ -17,7 +17,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class RetrofitInstrumentedTest: RetrofitTest() {
+class RetrofitInstrumentedTest: RetrofitTestInjector() {
 
     private var appComponent: DaggerTestAppComponent
 

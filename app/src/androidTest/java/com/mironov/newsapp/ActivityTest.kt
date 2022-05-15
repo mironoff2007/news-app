@@ -12,7 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mironov.newsapp.RetrofitInstrumentedTest.Companion.TEST_TAG
 import com.mironov.newsapp.di.DaggerTestAppComponent
-import com.mironov.newsapp.di.tests_wrappers.ActivityTestWrapper
+import com.mironov.newsapp.di.tests_wrappers.ActivityTestInjector
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
 import com.mironov.newsapp.repository.test.RepositoryTest
@@ -26,7 +26,7 @@ import org.junit.rules.TestName
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class ActivityTest: ActivityTestWrapper() {
+class ActivityTest {
 
     @get:Rule
     var testName: TestName = TestName()
@@ -36,10 +36,14 @@ class ActivityTest: ActivityTestWrapper() {
 
     private var viewModel: NewsListFragmentViewModel
 
+    private class Injector: ActivityTestInjector()
+
+    private val  injector = Injector()
+
     init{
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
-        appComponent.injectTest(this)
+        appComponent.injectTest(injector)
 
         viewModel = appComponent.factory.create(NewsListFragmentViewModel::class.java)
     }
@@ -52,6 +56,7 @@ class ActivityTest: ActivityTestWrapper() {
         urlToImage = "https://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/0/23/756518538122230.jpg",
         publishedAt = "01-01-2022"
     )
+
 
     @Before
     @Throws(Exception::class)
@@ -89,7 +94,7 @@ class ActivityTest: ActivityTestWrapper() {
     fun intoTest(){
         Log.d(TEST_TAG, testName.methodName)
 
-        (repository as RepositoryTest).isFirstStartup = true
+        (injector.repository as RepositoryTest).isFirstStartup = true
 
         val activityScenario = launch(MainActivity::class.java)
 
