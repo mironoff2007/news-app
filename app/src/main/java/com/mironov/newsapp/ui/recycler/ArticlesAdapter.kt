@@ -8,8 +8,12 @@ import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.databinding.ItemArticleBinding
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.entity.Article
+import javax.inject.Inject
 
-class ArticlesAdapter(private val glide:RequestManager) : RecyclerView.Adapter<ArticleViewHolder>() {
+class ArticlesAdapter() : RecyclerView.Adapter<ArticleViewHolder>() {
+
+    @Inject
+    lateinit var glide: RequestManager
 
     lateinit var listener: ItemClickListener<ArticleViewHolder>
 

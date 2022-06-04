@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.RequestManager
 import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentNewsListBinding
@@ -21,16 +19,12 @@ import com.mironov.newsapp.ui.recycler.ArticleViewHolder
 import com.mironov.newsapp.ui.recycler.ArticlesAdapter
 import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.KEY_ARTICLE
 import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.TAG_DETAILS_FRAGMENT
-import javax.inject.Inject
 
 class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
-    @Inject
-    lateinit var glide: RequestManager
-
      val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
 
-    private var adapter: ArticlesAdapter? = null
+    private val adapter: ArticlesAdapter by lazy { ArticlesAdapter() }
 
     private var daysBack = 0
     private var daysBackLast = 0
@@ -42,7 +36,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
             val fragment = DetailsFragment()
             val argumentsDetails = Bundle()
-            argumentsDetails.putParcelable(KEY_ARTICLE, adapter!!.articles[item.layoutPosition])
+            argumentsDetails.putParcelable(KEY_ARTICLE, adapter.articles[item.layoutPosition])
 
             fragment.arguments = argumentsDetails
 
@@ -62,6 +56,12 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().appComponent.inject(this)
+        requireContext().appComponent.inject(adapter)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getNews(daysBack)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -73,26 +73,28 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
         observeNewsByDate()
         observeNewsSearch()
 
-        if(adapter != null){
-            binding.progressBar.visibility = View.GONE
-            adapter!!.notifyDataSetChanged()
-        }
-        else{
-            adapter = ArticlesAdapter(glide)
-            adapter!!.listener = listener
-            viewModel.getNews(daysBack)
-        }
+        adapter.notifyDataSetChanged()
+        adapter.listener = listener
 
         val layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = layoutManager
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         binding.searchField.doOnTextChanged { text, _, _, _ -> search(text.toString()) }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.searchField.doOnTextChanged { text, start, before, count ->  }
     }
 
     private fun search(searchBy: String) {
         daysBack = 0
-        adapter!!.articles.clear()
+        adapter.articles.clear()
         if(searchBy.isNotBlank()){
             lockScrollUpdate = true
             viewModel.searchNews(binding.searchField.text.toString())
@@ -122,8 +124,8 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                 is Status.DATA -> {
                     lockScrollUpdate = false
                     binding.progressBar.visibility = View.GONE
-                    adapter!!.articles.addAll(status.articles!!)
-                    adapter!!.notifyDataSetChanged()
+                    adapter.articles.addAll(status.articles!!)
+                    adapter.notifyDataSetChanged()
                     binding.noNews.visibility = View.GONE
                     binding.dragHint.visibility = View.GONE
                     binding.dragArrow.visibility = View.GONE
@@ -168,9 +170,9 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
                     binding.dragHint.visibility = View.GONE
                     binding.dragArrow.visibility = View.GONE
                     daysBack = 0
-                    adapter!!.articles.clear()
-                    adapter!!.articles?.addAll(status.articles!!)
-                    adapter!!.notifyDataSetChanged()
+                    adapter.articles.clear()
+                    adapter.articles.addAll(status.articles!!)
+                    adapter.notifyDataSetChanged()
                 }
                 is Status.LOADING -> {
                     binding.progressBar.visibility = View.VISIBLE
