@@ -18,7 +18,6 @@ interface DaggerInterface {
     fun inject(greetingFragment: GreetingFragment)
     fun inject(guideFragment: GuideFragment)
     fun inject(detailsFragment: DetailsFragment)
-    fun inject(adapter: ArticlesAdapter)
 
     val factory: MultiViewModelFactory
 }

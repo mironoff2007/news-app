@@ -6,17 +6,13 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.RequestManager
+import com.bumptech.glide.Glide
 import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentDetailsBinding
 import com.mironov.newsapp.domain.entity.Article
-import javax.inject.Inject
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
-
-    @Inject
-    lateinit var glide: RequestManager
 
     override fun initBinding(
         inflater: LayoutInflater,
@@ -33,7 +29,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         binding.description.text = if(article?.description.isNullOrBlank()) article?.title else Html.fromHtml(article?.description)
         binding.date.text = article?.date
 
-        glide.asDrawable()
+        Glide.with(binding.image).asDrawable()
             .placeholder(R.drawable.ic_time)
             .error(R.drawable.ic_error)
             .load(article?.urlToImage)

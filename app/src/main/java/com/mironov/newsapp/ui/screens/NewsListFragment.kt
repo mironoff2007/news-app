@@ -22,7 +22,7 @@ import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.TAG_DETAILS_FRAG
 
 class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
-     val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
+    private val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
 
     private val adapter: ArticlesAdapter by lazy { ArticlesAdapter() }
 
@@ -56,7 +56,6 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().appComponent.inject(this)
-        requireContext().appComponent.inject(adapter)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
