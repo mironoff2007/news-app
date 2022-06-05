@@ -1,4 +1,4 @@
-package com.mironov.newsapp.ui
+package com.mironov.newsapp.ui.screens.newsdetails
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData

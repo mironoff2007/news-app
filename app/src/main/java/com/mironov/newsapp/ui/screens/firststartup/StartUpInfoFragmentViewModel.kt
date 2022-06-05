@@ -1,4 +1,4 @@
-package com.mironov.newsapp.ui
+package com.mironov.newsapp.ui.screens.firststartup
 
 import androidx.lifecycle.ViewModel
 import com.mironov.newsapp.repository.Repository

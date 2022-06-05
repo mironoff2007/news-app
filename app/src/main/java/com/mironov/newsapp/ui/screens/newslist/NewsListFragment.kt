@@ -1,4 +1,4 @@
-package com.mironov.newsapp.ui.screens
+package com.mironov.newsapp.ui.screens.newslist
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,15 +14,18 @@ import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentNewsListBinding
 import com.mironov.newsapp.domain.entity.Status
-import com.mironov.newsapp.ui.NewsListFragmentViewModel
+import com.mironov.newsapp.ui.screens.newsdetails.NewsListFragmentViewModel
 import com.mironov.newsapp.ui.recycler.ArticleViewHolder
 import com.mironov.newsapp.ui.recycler.ArticlesAdapter
-import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.KEY_ARTICLE
-import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.TAG_DETAILS_FRAGMENT
+import com.mironov.newsapp.ui.screens.BaseFragment
+import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment
+import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment.Companion.KEY_ARTICLE
+import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment.Companion.TAG_DETAILS_FRAGMENT
 
 class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
-    private val viewModel by lazy { requireContext().appComponent.factory.create(NewsListFragmentViewModel::class.java) }
+    private val viewModel by lazy { requireContext().appComponent.factory.create(
+        NewsListFragmentViewModel::class.java) }
 
     private val adapter: ArticlesAdapter by lazy { ArticlesAdapter() }
 

@@ -10,7 +10,7 @@ import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.repository.DataShared
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.repository.retrofit.NewsApi
-import com.mironov.newsapp.ui.NewsListFragmentViewModel
+import com.mironov.newsapp.ui.screens.newsdetails.NewsListFragmentViewModel
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule

@@ -1,4 +1,4 @@
-package com.mironov.newsapp.ui.screens
+package com.mironov.newsapp.ui.screens.newsdetails
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,7 @@ import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
 import com.mironov.newsapp.databinding.FragmentDetailsBinding
 import com.mironov.newsapp.domain.entity.Article
+import com.mironov.newsapp.ui.screens.BaseFragment
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
 

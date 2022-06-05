@@ -4,12 +4,11 @@ import android.content.Context
 import com.mironov.newsapp.di.modules.*
 import com.mironov.newsapp.di.modules.viewmodel.MultiViewModelFactory
 import com.mironov.newsapp.ui.MainActivity
-import com.mironov.newsapp.ui.screens.DetailsFragment
-import com.mironov.newsapp.ui.screens.GreetingFragment
-import com.mironov.newsapp.ui.screens.GuideFragment
-import com.mironov.newsapp.ui.screens.NewsListFragment
+import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment
+import com.mironov.newsapp.ui.screens.firststartup.GreetingFragment
+import com.mironov.newsapp.ui.screens.firststartup.GuideFragment
+import com.mironov.newsapp.ui.screens.newslist.NewsListFragment
 import dagger.*
-import javax.inject.Scope
 
 @Component(modules = [
     RepositoryModule::class,

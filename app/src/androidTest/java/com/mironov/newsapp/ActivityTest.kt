@@ -17,7 +17,7 @@ import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
 import com.mironov.newsapp.repository.test.RepositoryTest
 import com.mironov.newsapp.ui.MainActivity
-import com.mironov.newsapp.ui.NewsListFragmentViewModel
+import com.mironov.newsapp.ui.screens.newsdetails.NewsListFragmentViewModel
 import org.hamcrest.Matchers.instanceOf
 import org.junit.Before
 import org.junit.Rule

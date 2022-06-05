@@ -4,12 +4,9 @@ package com.mironov.newsapp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.testing.FragmentScenario.Companion.launchInContainer
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
-import com.mironov.newsapp.di.*
 import com.mironov.newsapp.domain.entity.Article
-import com.mironov.newsapp.ui.screens.DetailsFragment
-import com.mironov.newsapp.ui.screens.DetailsFragment.Companion.KEY_ARTICLE
-import org.junit.Before
+import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment
+import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment.Companion.KEY_ARTICLE
 import org.junit.Test
 import org.junit.runner.RunWith
 

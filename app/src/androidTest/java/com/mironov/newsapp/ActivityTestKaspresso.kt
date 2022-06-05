@@ -3,7 +3,6 @@ package com.mironov.newsapp
 
 import android.Manifest
 import android.util.Log
-import androidx.test.annotation.UiThreadTest
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,8 +18,7 @@ import com.mironov.newsapp.repository.test.RepositoryTest
 import com.mironov.newsapp.screen.IntroScreen
 import com.mironov.newsapp.screen.NewsListScreen
 import com.mironov.newsapp.ui.MainActivity
-import com.mironov.newsapp.ui.NewsListFragmentViewModel
-import okhttp3.internal.wait
+import com.mironov.newsapp.ui.screens.newsdetails.NewsListFragmentViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

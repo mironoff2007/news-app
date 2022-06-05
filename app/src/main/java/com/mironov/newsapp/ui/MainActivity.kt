@@ -2,18 +2,15 @@ package com.mironov.newsapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Debug
-import android.os.Handler
 import androidx.lifecycle.Observer
 import com.mironov.newsapp.R
 import com.mironov.newsapp.appComponent
-import com.mironov.newsapp.ui.screens.GreetingFragment
-import com.mironov.newsapp.ui.screens.GreetingFragment.Companion.TAG_GREETING_FRAGMENT
-import com.mironov.newsapp.ui.screens.NewsListFragment
-import com.mironov.newsapp.ui.screens.NewsListFragment.Companion.TAG_NEWS_LIST_FRAGMENT
+import com.mironov.newsapp.ui.screens.firststartup.GreetingFragment
+import com.mironov.newsapp.ui.screens.firststartup.GreetingFragment.Companion.TAG_GREETING_FRAGMENT
+import com.mironov.newsapp.ui.screens.newslist.NewsListFragment
+import com.mironov.newsapp.ui.screens.newslist.NewsListFragment.Companion.TAG_NEWS_LIST_FRAGMENT
 import com.mironov.newsapp.ui.screens.SplashFragment
 import com.mironov.newsapp.ui.screens.SplashFragment.Companion.TAG_SPLASH_SCREEN_FRAGMENT
-import java.util.concurrent.atomic.AtomicBoolean
 
 class MainActivity : AppCompatActivity() {
 

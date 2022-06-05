@@ -3,8 +3,8 @@ package com.mironov.newsapp.screen
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.mironov.newsapp.R
 import com.kaspersky.kaspresso.screens.KScreen
-import com.mironov.newsapp.ui.screens.DetailsFragment
-import com.mironov.newsapp.ui.screens.GreetingFragment
+import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment
+import com.mironov.newsapp.ui.screens.firststartup.GreetingFragment
 import io.github.kakaocup.kakao.recycler.KRecyclerView
 import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView

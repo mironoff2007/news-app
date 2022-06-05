@@ -9,8 +9,8 @@ import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.NewsResources
 import com.mironov.newsapp.repository.retrofit.JsonResponse
 import com.mironov.newsapp.di.tests_wrappers.RetrofitTestInjector
-import com.mironov.newsapp.ui.NewsListFragmentViewModel
-import com.mironov.newsapp.ui.NewsListFragmentViewModel.Companion.API_KEY
+import com.mironov.newsapp.ui.screens.newsdetails.NewsListFragmentViewModel
+import com.mironov.newsapp.ui.screens.newsdetails.NewsListFragmentViewModel.Companion.API_KEY
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

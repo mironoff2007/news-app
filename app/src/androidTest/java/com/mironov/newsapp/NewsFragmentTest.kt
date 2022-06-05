@@ -13,8 +13,8 @@ import com.mironov.newsapp.di.DaggerTestAppComponent
 import com.mironov.newsapp.di.tests_wrappers.NewsFragmentTestInjector
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
-import com.mironov.newsapp.ui.NewsListFragmentViewModel
-import com.mironov.newsapp.ui.screens.NewsListFragment
+import com.mironov.newsapp.ui.screens.newsdetails.NewsListFragmentViewModel
+import com.mironov.newsapp.ui.screens.newslist.NewsListFragment
 import org.hamcrest.Matchers.instanceOf
 import org.junit.Before
 import org.junit.Rule
