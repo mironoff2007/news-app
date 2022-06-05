@@ -38,7 +38,8 @@ class NewsListFragmentViewModel @Inject constructor(
         if (daysBack == 0) {
             //Always load today news from web
             getNewsFromWeb(daysBack)
-        } else {
+        }
+        else {
             val date = DateUtil.getPreviousDayDate(daysBack)
 
             disposables.add(repository.getNewsFromDbByDate(date).doOnSuccess { articles ->
@@ -48,11 +49,9 @@ class NewsListFragmentViewModel @Inject constructor(
                         statusNewsByDate.postValue(Status.DATA(articles as ArrayList<Article>?))
                     }
                 }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe({},
-                    { throwable -> statusNewsByDate.postValue(Status.ERROR(throwable.toString())) })
+                .subscribe({}, { throwable -> statusNewsByDate.postValue(Status.ERROR(throwable.toString())) })
             )
         }
-
     }
 
     @SuppressLint("CheckResult")
@@ -76,10 +75,18 @@ class NewsListFragmentViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { response ->
                     if (response?.status == stringsProvider.getString(R.string.status_name_ok)) {
-                        response.articles!!.forEach { article -> article.date = DateUtil.convertDate(article.publishedAt) }
-                        statusNewsByDate.postValue(Status.DATA(response.articles))
-                        response.articles.let { repository.saveNewsToDb(it!!) }
-                    } else {
+                        if (response.articles.isNullOrEmpty()) {
+                            statusNewsByDate.postValue(Status.EMPTY)
+                        }
+                        else {
+                            response.articles!!.forEach { article ->
+                                article.date = DateUtil.convertDate(article.publishedAt)
+                            }
+                            statusNewsByDate.postValue(Status.DATA(response.articles))
+                            response.articles.let { repository.saveNewsToDb(it!!) }
+                        }
+                    }
+                    else {
                         statusNewsByDate.postValue(Status.ERROR(response?.message ?: stringsProvider.getString(R.string.unknown_error)))
                     }
                 }
@@ -108,11 +115,17 @@ class NewsListFragmentViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { response ->
                     if (response?.status == stringsProvider.getString(R.string.status_name_ok)) {
-                        response.articles?.forEach { article ->
-                            article.date = DateUtil.convertDate(article.publishedAt)
+                        if (response.articles.isNullOrEmpty()) {
+                            statusNewsByDate.postValue(Status.NOTFOUND)
                         }
-                        statusNewsSearch.postValue(Status.DATA(response.articles))
-                    } else {
+                        else {
+                            response.articles?.forEach { article ->
+                                article.date = DateUtil.convertDate(article.publishedAt)
+                            }
+                            statusNewsSearch.postValue(Status.DATA(response.articles))
+                        }
+                    }
+                    else {
                         statusNewsSearch.postValue(Status.ERROR(response?.message ?: stringsProvider.getString(R.string.unknown_error)))
                     }
                 }

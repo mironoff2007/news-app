@@ -122,40 +122,25 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
     private fun observeNewsByDate() {
         viewModel.statusNewsByDate.observe(viewLifecycleOwner) { status ->
+            updateUiState(status)
             when (status) {
                 is Status.DATA -> {
                     lockScrollUpdate = false
-                    binding.progressBar.visibility = View.GONE
                     adapter.articles.addAll(status.articles!!)
                     adapter.notifyDataSetChanged()
-                    binding.noNews.visibility = View.GONE
-                    binding.dragHint.visibility = View.GONE
-                    binding.dragArrow.visibility = View.GONE
                 }
                 is Status.LOADING -> {
                     lockScrollUpdate = true
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.noNews.visibility = View.GONE
-                    binding.dragHint.visibility = View.GONE
-                    binding.dragArrow.visibility = View.GONE
                 }
                 is Status.ERROR -> {
                     lockScrollUpdate = false
                     daysBack = daysBackLast
-                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
-                    binding.noNews.visibility = View.GONE
-                    binding.dragHint.visibility = View.GONE
-                    binding.dragArrow.visibility = View.GONE
                 }
                 is Status.EMPTY -> {
                     lockScrollUpdate = false
                     daysBack = daysBackLast
-                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), getString(R.string.no_news), Toast.LENGTH_LONG).show()
-                    binding.noNews.visibility = View.VISIBLE
-                    binding.dragArrow.visibility = View.VISIBLE
-                    binding.dragHint.visibility = View.VISIBLE
                 }
                 else -> {
                 }
@@ -165,43 +150,34 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
     private fun observeNewsSearch() {
         viewModel.statusNewsSearch.observe(viewLifecycleOwner) { status ->
+            updateUiState(status)
             when (status) {
                 is Status.DATA -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.noNews.visibility = View.GONE
-                    binding.dragHint.visibility = View.GONE
-                    binding.dragArrow.visibility = View.GONE
                     daysBack = 0
                     adapter.articles.clear()
                     adapter.articles.addAll(status.articles!!)
                     adapter.notifyDataSetChanged()
                 }
-                is Status.LOADING -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.noNews.visibility = View.GONE
-                    binding.dragHint.visibility = View.GONE
-                    binding.dragArrow.visibility = View.GONE
-                }
+                is Status.LOADING -> {}
                 is Status.ERROR -> {
-                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
-                    binding.noNews.visibility = View.GONE
-                    binding.dragHint.visibility = View.GONE
-                    binding.dragArrow.visibility = View.GONE
                 }
-                is Status.EMPTY -> {
+                is Status.NOTFOUND -> {
                     lockScrollUpdate = false
                     daysBack = daysBackLast
-                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), getString(R.string.no_news), Toast.LENGTH_LONG).show()
-                    binding.noNews.visibility = View.VISIBLE
-                    binding.dragArrow.visibility = View.GONE
-                    binding.dragHint.visibility = View.GONE
                 }
                 else -> {
                 }
             }
         }
+    }
+
+    private fun updateUiState(status: Status){
+        binding.noNews.visibility = if (status.noNews) View.VISIBLE else View.GONE
+        binding.progressBar.visibility = if (status.loading) View.VISIBLE else View.GONE
+        binding.dragArrow.visibility = if(status.dragHint) View.VISIBLE else View.GONE
+        binding.dragHint.visibility = if(status.dragHint) View.VISIBLE else View.GONE
     }
 
     override fun onDestroy() {

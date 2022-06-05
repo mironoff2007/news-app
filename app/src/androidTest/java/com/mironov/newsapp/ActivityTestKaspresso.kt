@@ -108,9 +108,9 @@ class ActivityTestKaspresso : TestCase() {
         }.run {
             step("Open Simple Screen") {
                 NewsListScreen {
-                    while(viewModel.statusNewsSearch.value != Status.EMPTY){
+                    while(viewModel.statusNewsSearch.value != Status.NOTFOUND){
                         Thread.sleep(100)
-                        viewModel.statusNewsSearch.postValue(Status.EMPTY)
+                        viewModel.statusNewsSearch.postValue(Status.NOTFOUND)
                     }
                     noNewsHint {
                         isVisible()
@@ -124,9 +124,10 @@ class ActivityTestKaspresso : TestCase() {
     }
 
     @Test
-    fun mainActivityTest2(){
+    fun showIntroScreenTest(){
         Log.d(TEST_TAG, testName.methodName)
 
+        //activity is needed to set first startup
         (injector.repository as RepositoryTest).isFirstStartup = true
         val activityScenario = ActivityScenario.launch(MainActivity::class.java)
 
@@ -152,7 +153,7 @@ class ActivityTestKaspresso : TestCase() {
     }
 
     @Test
-    fun mainActivityTest3(){
+    fun showNewsTest(){
         Log.d(TEST_TAG, testName.methodName)
 
         before {
