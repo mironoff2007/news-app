@@ -21,6 +21,7 @@ import com.mironov.newsapp.ui.screens.BaseFragment
 import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment
 import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment.Companion.KEY_ARTICLE
 import com.mironov.newsapp.ui.screens.newsdetails.DetailsFragment.Companion.TAG_DETAILS_FRAGMENT
+import okhttp3.internal.notifyAll
 
 class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
 
@@ -97,6 +98,7 @@ class NewsListFragment : BaseFragment<FragmentNewsListBinding>() {
     private fun search(searchBy: String) {
         daysBack = 0
         adapter.articles.clear()
+        adapter.notifyDataSetChanged()
         if(searchBy.isNotBlank()){
             lockScrollUpdate = true
             viewModel.searchNews(binding.searchField.text.toString())

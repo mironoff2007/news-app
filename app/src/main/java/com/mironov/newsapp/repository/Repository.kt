@@ -9,7 +9,7 @@ import com.mironov.newsapp.repository.room.ArticleDatabase
 import io.reactivex.Single
 import javax.inject.Inject
 
-class Repository @Inject constructor(
+open class Repository @Inject constructor(
     private val dataShared: DataShared,
     private val retrofit: NewsApi,
     private val articleBD: ArticleDatabase
