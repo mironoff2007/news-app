@@ -126,15 +126,15 @@ class MocksTest {
     }
 
     @Test
-    fun mockitoApiTest(){
+    fun mockitoApiTest() {
         val mockNewsApi = mock(NewsApi::class.java)
         val response = JsonResponse()
         response.status = "ok"
         Mockito.`when`(
             mockNewsApi.getNews(
                 pageSize = anyInt(),
-                domains = anyString(),
-                sources = anyString(),
+                domains = any(),
+                sources = any(),
                 language = anyString(),
                 dateFrom = anyString(),
                 dateTo = anyString(),
@@ -155,7 +155,9 @@ class MocksTest {
     }
 
     @Test
-    fun mockitoRepoTest(){
+    fun mockitoRepoTest() {
+        //Repository should be open, mockito does not work with final classes
+        //Classes are final in kotlin bu default
         val mockNewsApi = mock(Repository::class.java)
         val response = JsonResponse()
         response.status = "ok"
