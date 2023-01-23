@@ -38,12 +38,6 @@ android {
             exclude group: 'io.mockk', module: 'mockk-agent-jvm'
         }
     }
-    /*allprojects {
-        afterEvaluate {
-            configurations.findByName("androidTestImplementation")
-                exclude(group = "io.mockk", module = "mockk-agent-jvm")
-        }
-    }*/
 
 }
 
@@ -68,11 +62,10 @@ dependencies {
 
     //Mockk
     ext.mockk_version = "1.12.4"
-    //testImplementation "io.mockk:mockk:$mockk_version"
-    //testImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
     androidTestImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
-    //testImplementation "io.mockk:mockk:1.12.4"
 
     //DI
     ext.daggerVersion = "2.37"
