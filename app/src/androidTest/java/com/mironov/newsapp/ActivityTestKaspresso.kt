@@ -49,7 +49,7 @@ class ActivityTestKaspresso : TestCase() {
 
     private var viewModel: NewsListFragmentViewModel
 
-    init{
+    init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
         appComponent.injectTest(injector)

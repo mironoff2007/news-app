@@ -19,7 +19,6 @@ annotation class TestScope
 
 
 @Component(modules = [
-    DataSharedModule::class,
     RepositoryModuleTest::class,
     RetrofitModuleTest::class,
     ViewModelModuleTest::class,

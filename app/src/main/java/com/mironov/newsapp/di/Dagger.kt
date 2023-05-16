@@ -12,7 +12,6 @@ import dagger.*
 
 @Component(modules = [
     RepositoryModule::class,
-    DataSharedModule::class,
     RetrofitModule::class,
     ViewModelModule::class,
     UseCaseModule::class,

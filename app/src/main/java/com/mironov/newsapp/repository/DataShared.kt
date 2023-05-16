@@ -2,8 +2,9 @@ package com.mironov.newsapp.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class DataShared(context: Context) {
+class DataShared @Inject constructor(context: Context) {
 
     private val pref: SharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor = pref.edit()

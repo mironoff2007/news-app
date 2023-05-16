@@ -22,7 +22,7 @@ object RetrofitModule {
     @Provides
     fun provideRetrofit(): Retrofit.Builder {
         return Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder().serializeNulls()
@@ -38,6 +38,8 @@ object RetrofitModule {
             .build()
             .create(NewsApi::class.java)
     }
+
+    private const val BASE_URL = "https://newsapi.org/v2/"
 }
 
 

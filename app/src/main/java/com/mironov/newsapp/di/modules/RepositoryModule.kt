@@ -12,7 +12,5 @@ import dagger.Provides
 object RepositoryModule {
 
     @Provides
-    fun provideRepository(dataShared: DataShared, retrofit: NewsApi, articleDB: ArticleDatabase): RepositoryApi {
-        return Repository(dataShared, retrofit, articleDB)
-    }
+    fun provideRepository(repo: Repository): RepositoryApi = repo
 }
