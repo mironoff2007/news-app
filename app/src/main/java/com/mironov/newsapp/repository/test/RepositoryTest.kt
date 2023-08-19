@@ -16,7 +16,7 @@ class RepositoryTest @Inject constructor(
     private val articleBD: ArticleDatabase
 ) : RepositoryApi {
 
-    var isFirstStartup = false
+    private var isFirstStartup = false
 
     override fun setNotFirstStartUp() {
         isFirstStartup = false
@@ -58,6 +58,10 @@ class RepositoryTest @Inject constructor(
         val queryDate = DateUtil.convertDate(date)
         val query = "SELECT * FROM Article WHERE date='$queryDate'"
         return articleBD.articleDao().readArticlesByDate(SimpleSQLiteQuery(query))
+    }
+
+    fun reset() {
+        isFirstStartup = true
     }
 
 }

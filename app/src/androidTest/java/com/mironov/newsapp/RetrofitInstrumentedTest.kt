@@ -21,7 +21,7 @@ class RetrofitInstrumentedTest: RetrofitTestInjector() {
 
     private var appComponent: DaggerTestAppComponent
 
-    init{
+    init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
         appComponent.injectTest(this)
@@ -60,7 +60,7 @@ class RetrofitInstrumentedTest: RetrofitTestInjector() {
         assertEquals(true, response?.status == "ok")
     }
 
-    companion object{
+    companion object {
         const val TEST_TAG = "Test_tag"
     }
 }

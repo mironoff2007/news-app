@@ -1,6 +1,5 @@
 package com.mironov.newsapp
 
-
 import android.util.Log
 import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -40,7 +39,7 @@ class ActivityTest {
 
     private val  injector = Injector()
 
-    init{
+    init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
         appComponent.injectTest(injector)
@@ -57,19 +56,23 @@ class ActivityTest {
         publishedAt = "01-01-2022"
     )
 
-
     @Before
-    @Throws(Exception::class)
-    fun setUp() {}
-
+    fun before() {
+        (injector.repository as RepositoryTest).setNotFirstStartUp()
+    }
 
     @Test
-    fun mainActivityTest(){
+    fun mainActivityTest() {
         Log.d(TEST_TAG, testName.methodName)
+
+        (injector.repository as RepositoryTest).setNotFirstStartUp()
 
         val activityScenario = launch(MainActivity::class.java)
 
-        activityScenario.onActivity { viewModel.statusNewsByDate.postValue(Status.DATA(arrayListOf(article, article))) }
+        activityScenario.onActivity {
+            val status = Status.DATA(arrayListOf(article, article))
+            viewModel.statusNewsByDate.postValue(status)
+        }
 
         var recycler: RecyclerView? = null
         try {
@@ -84,33 +87,40 @@ class ActivityTest {
 
         Log.d(TEST_TAG, "count = $count")
 
-        //For interaction with UI
-        //Thread.sleep(10000)
+        val hasItems = count > 0
 
-        assert(count > 0)
+        assert(hasItems)
     }
 
     @Test
-    fun intoTest(){
+    fun intoTest() {
         Log.d(TEST_TAG, testName.methodName)
 
-        (injector.repository as RepositoryTest).isFirstStartup = true
+        (injector.repository as RepositoryTest).reset()
 
         val activityScenario = launch(MainActivity::class.java)
 
-        activityScenario.onActivity { viewModel.statusNewsByDate.postValue(Status.DATA(arrayListOf(article, article))) }
+        activityScenario.onActivity {
+            viewModel.statusNewsByDate.postValue(
+                Status.DATA(
+                    arrayListOf(
+                        article,
+                        article
+                    )
+                )
+            )
+        }
 
         var infoFragment: View? = null
         try {
             onView(withId(R.id.info_fragment))
                 .check { view, noViewFoundException -> infoFragment = view as View }
-        }
-        catch (e: java.lang.Exception) {
+        } catch (e: java.lang.Exception) {
             Log.d(TEST_TAG, e.toString())
         }
 
-        //Thread.sleep(10000)
+        val fragmentExists = infoFragment != null
 
-        assert(infoFragment != null)
+        assert(fragmentExists)
     }
 }

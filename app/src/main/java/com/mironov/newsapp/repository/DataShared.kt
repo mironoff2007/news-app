@@ -17,6 +17,10 @@ class DataShared @Inject constructor(context: Context) {
         return pref.getBoolean(KEY_IS_FIRST_STARTUP, true)
     }
 
+    fun clean() {
+        pref.edit().clear().commit()
+    }
+
     companion object {
         private const val KEY_IS_FIRST_STARTUP = "KEY_IS_FIRST_STARTUP"
         private const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES_NAME"

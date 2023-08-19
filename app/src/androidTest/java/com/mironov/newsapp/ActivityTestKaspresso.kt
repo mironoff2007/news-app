@@ -2,11 +2,15 @@ package com.mironov.newsapp
 
 
 import android.Manifest
+import android.content.Intent
 import android.util.Log
 import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import com.mironov.newsapp.RetrofitInstrumentedTest.Companion.TEST_TAG
@@ -37,11 +41,7 @@ class ActivityTestKaspresso : TestCase() {
     @get:Rule
     var testName: TestName = TestName()
 
-   /* @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()*/
-
-    @get:Rule
-    val activityRule = activityScenarioRule<MainActivity>()
+    private val intent = Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java)
 
     private class Injector: ActivityTestInjector()
 
@@ -67,8 +67,8 @@ class ActivityTestKaspresso : TestCase() {
     )
 
     @Before
-    fun before(){
-        activityRule.scenario.recreate()
+    fun before() {
+        (injector.repository as RepositoryTest).setNotFirstStartUp()
     }
 
     @Test
@@ -77,20 +77,20 @@ class ActivityTestKaspresso : TestCase() {
 
         before {
             testLogger.i("Before section")
+            launchActivity<MainActivity>(intent)
         }.after {
             testLogger.i("After section")
         }.run {
             step("Open Simple Screen") {
                 NewsListScreen {
-                    while(viewModel.statusNewsByDate.value != Status.EMPTY){
-                        Thread.sleep(100)
+                    flakySafely(5000) {
                         viewModel.statusNewsByDate.postValue(Status.EMPTY)
-                    }
-                    noNewsHint {
-                        isVisible()
-                    }
-                    dragHint {
-                        isVisible()
+                        noNewsHint {
+                            isVisible()
+                        }
+                        dragHint {
+                            isVisible()
+                        }
                     }
                 }
             }
@@ -103,20 +103,21 @@ class ActivityTestKaspresso : TestCase() {
 
         before {
             testLogger.i("Before section")
+            launchActivity<MainActivity>(intent)
         }.after {
             testLogger.i("After section")
         }.run {
+            //activityRule.scenario.recreate()
             step("Open Simple Screen") {
                 NewsListScreen {
-                    while(viewModel.statusNewsSearch.value != Status.NOTFOUND){
-                        Thread.sleep(100)
+                    flakySafely(5000) {
                         viewModel.statusNewsSearch.postValue(Status.NOTFOUND)
-                    }
-                    noNewsHint {
-                        isVisible()
-                    }
-                    dragHint {
-                        isGone()
+                        noNewsHint {
+                            isVisible()
+                        }
+                        dragHint {
+                            isGone()
+                        }
                     }
                 }
             }
@@ -124,44 +125,41 @@ class ActivityTestKaspresso : TestCase() {
     }
 
     @Test
-    fun showIntroScreenTest(){
+    fun showIntroScreenTest() {
         Log.d(TEST_TAG, testName.methodName)
-
-        //activity is needed to set first startup
-        (injector.repository as RepositoryTest).isFirstStartup = true
-        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
 
         before {
             testLogger.i("Before section")
+            (injector.repository as RepositoryTest).reset()
+            launchActivity<MainActivity>(intent)
         }.after {
             testLogger.i("After section")
-            (injector.repository as RepositoryTest).isFirstStartup = false
-        }.run{
+        }.run {
             step("Open Simple Screen") {
-
                 testLogger.i("Main section")
-
                 IntroScreen {
-                    forwardButton {
-                        isVisible()
-                        click()
+                    flakySafely(5000) {
+                        forwardButton {
+                            isVisible()
+                            click()
+                        }
+                        device.screenshots.take("intoTest_Screenshot")
                     }
-                    device.screenshots.take("intoTest_Screenshot")
                 }
             }
         }
     }
 
     @Test
-    fun showNewsTest(){
+    fun showNewsTest() {
         Log.d(TEST_TAG, testName.methodName)
 
         before {
             testLogger.i("Before section")
-             }.after {
+            launchActivity<MainActivity>(intent)
+        }.after {
             testLogger.i("After section")
         }.run {
-
             step("Open Simple Screen") {
                 NewsListScreen {
                     viewModel.statusNewsByDate.postValue(Status.DATA(arrayListOf(article, article)))
