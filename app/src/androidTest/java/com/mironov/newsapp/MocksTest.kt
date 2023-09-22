@@ -6,6 +6,7 @@ import com.mironov.newsapp.repository.retrofit.NewsApi
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockkClass
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -20,9 +21,6 @@ class MocksTest {
     @get:Rule
     var testName: TestName = TestName()
 
-    @MockK
-    lateinit var apiMockk: NewsApi
-
     @MockK(relaxed = true)
     lateinit var repoMockk: Repository
 
@@ -36,19 +34,22 @@ class MocksTest {
     fun mockkApiTest() {
         val response = JsonResponse()
         response.status = "ok"
-        every {
-            apiMockk.getNews(
-                any(),
-                any(),
-                any(),
-                any(),
-                any(),
-                any(),
-                any()
-            )
-        } returns Single.just(response)
 
-        val result = apiMockk.getNews(
+        val mockApi = mockkClass(NewsApi::class, relaxed = true, relaxUnitFun = true) {
+            every {
+                getNews(
+                    any(),
+                    any(),
+                    any(),
+                    any(),
+                    any(),
+                    any(),
+                    any()
+                )
+            } returns Single.just(response)
+        }
+
+        val result = mockApi.getNews(
             pageSize = 0,
             domains = null,
             sources = null,

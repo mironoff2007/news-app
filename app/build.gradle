@@ -38,15 +38,17 @@ android {
         enabled true
     }
 
-    configurations {
-        androidTestImplementation {
-            exclude group: 'io.mockk', module: 'mockk-agent-jvm'
-        }
-    }
-
     packagingOptions {
         exclude "META-INF/LICENSE.md"
         exclude "META-INF/LICENSE-notice.md"
+    }
+
+    testOptions {
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
     }
 
 }
