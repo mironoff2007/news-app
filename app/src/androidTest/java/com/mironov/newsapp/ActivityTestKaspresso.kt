@@ -15,6 +15,7 @@ import androidx.test.rule.GrantPermissionRule
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import com.mironov.newsapp.RetrofitInstrumentedTest.Companion.TEST_TAG
 import com.mironov.newsapp.di.DaggerTestAppComponent
+import com.mironov.newsapp.di.TestAppComponent
 import com.mironov.newsapp.di.tests_wrappers.ActivityTestInjector
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
@@ -51,7 +52,7 @@ class ActivityTestKaspresso : TestCase() {
 
     init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
+        val appComponent = appContext.applicationContext.appComponent as TestAppComponent
         appComponent.injectTest(injector)
 
         viewModel = appComponent.factory.create(NewsListFragmentViewModel::class.java)

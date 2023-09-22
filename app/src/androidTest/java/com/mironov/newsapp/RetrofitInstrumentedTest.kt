@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mironov.newsapp.di.DaggerTestAppComponent
+import com.mironov.newsapp.di.TestAppComponent
 import com.mironov.newsapp.domain.DateUtil
 import com.mironov.newsapp.domain.NewsResources
 import com.mironov.newsapp.repository.retrofit.JsonResponse
@@ -19,11 +20,11 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class RetrofitInstrumentedTest: RetrofitTestInjector() {
 
-    private var appComponent: DaggerTestAppComponent
+    private var appComponent: TestAppComponent
 
     init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
+        appComponent = appContext.applicationContext.appComponent as TestAppComponent
         appComponent.injectTest(this)
     }
 

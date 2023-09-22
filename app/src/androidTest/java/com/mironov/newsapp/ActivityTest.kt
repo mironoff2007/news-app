@@ -11,6 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mironov.newsapp.RetrofitInstrumentedTest.Companion.TEST_TAG
 import com.mironov.newsapp.di.DaggerTestAppComponent
+import com.mironov.newsapp.di.TestAppComponent
 import com.mironov.newsapp.di.tests_wrappers.ActivityTestInjector
 import com.mironov.newsapp.domain.entity.Article
 import com.mironov.newsapp.domain.entity.Status
@@ -41,7 +42,7 @@ class ActivityTest {
 
     init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val appComponent = appContext.applicationContext.appComponent as DaggerTestAppComponent
+        val appComponent = appContext.applicationContext.appComponent as TestAppComponent
         appComponent.injectTest(injector)
 
         viewModel = appComponent.factory.create(NewsListFragmentViewModel::class.java)
